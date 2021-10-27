@@ -12,6 +12,12 @@ html {
 
 body {
     margin: 0;
+    background-color: lightslategray;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 img {
@@ -19,11 +25,64 @@ img {
     width: 200px;
 }
 
+
+/* header */
+
+.main-nav a{
+padding: 15px;
+margin-inline-end: 10px;
+border-radius: 20px;
+color: #FFFFFF;
+}
+
+.main-nav a:hover{
+    background-color: #FEFEFE;
+    color: #5970C1;
+}
+
+.main-header{
+background-color: #5970C1;
+border-radius: 20px;
+}
+
+.logo img {
+    height: 100px;
+    width: 200px;
+}
+
+
+
+
+
+
+
 .images {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 50px));
     /* grid-auto-rows: minmax(50px, 1fr); */
     /* grid-template-rows: minmax(50px, 1fr); */
     grid-gap: 20px;
+}
+
+/* main */
+
+main{
+    background-color: #383B42;
+}
+
+.options{
+    padding: 50px;
+    text-align: center;
+}
+.options > input{
+    color: #FEFEFE;
+    background-color: #22252C;
+    border-radius: 10px;
+}
+.options > ul{
+    color: #FEFEFE;
+    background-color: lightslategrey;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 
@@ -104,6 +163,7 @@ body.do-meme .main-screen {
 .paint-board-and-brush-back {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
 }
+
 .upload {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/facebook-logo.png');
 }

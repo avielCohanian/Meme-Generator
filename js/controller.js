@@ -1,6 +1,10 @@
 'use strict'
 var gCanvas;
 var gCtx;
+var  gStartPos;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+
+
 
 function onInit() {
     renderImgs()
@@ -8,30 +12,27 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
 
 
-    // addListeners()
+    addListeners()
 }
 
 function renderCanvas() {
-    let currCanvasImg = getCurrImgs()
+    let currCanvasImg = getCurrImg()
     let imgs = getImgs()
     let currImg = imgs.find(img => img.id === currCanvasImg.selectedImgId)
-    // SelectImg(currImg.id)
+    SelectImg(currImg.id)
     openImg(currImg.url)
-    drawText(currCanvasImg.lines.txt)
-    console.log(currCanvasImg);
-    //     gCtx.fillStyle = "#ede5ff"
-    //     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
+    drawText(currCanvasImg.lines.txt[0].txt)
+
     //     renderCircle()
-    // gCtx.restore()
 }
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas()
-    //     renderCanvas()
-    // })
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderCanvas()
+    })
 }
 
 function addMouseListeners() {
@@ -48,26 +49,27 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (!isCircleClicked(pos)) return
-    setCircleDrag(true)
+    if (!isTxtClicked(ev.offsetY)) return
+    setTxtDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
-    const circle = getCircle();
-    if (circle.isDrag) {
+    const currImg = getCurrImg();
+    if (currImg.lines.isDrag) {
         const pos = getEvPos(ev)
+        console.log(pos);
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
         gStartPos = pos
-        moveCircle(dx, dy)
+        movecurrImg(dx, dy)
         renderCanvas()
     }
 }
 
 function onUp() {
-    setCircleDrag(false)
+    setTxtDrag(false)
     document.body.style.cursor = 'grab'
 }
 
@@ -93,9 +95,7 @@ function SelectImg(elId) {
 function openImg(url){
     var img = new Image()
     img.src = url
-    // img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-    // }
 }
 
 function onDrawText(txt) {
@@ -106,27 +106,35 @@ function onDrawText(txt) {
 
 function onTxtColorChange(txtColor) {
     setTxtColor(txtColor)
+    renderCanvas()
 }
 function onBackColorChange(txtColor) {
     setBackgroundColor(txtColor)
+    renderCanvas()
 }
 function increaseFont() {
     setIncreaseFont()
+    renderCanvas()
 }
 function decreaseFont() {
     setDecreaseFont()
+    renderCanvas()
 }
 function centerTextAlignment() {
     setCenterTextAlignment()
+    renderCanvas()
 }
 function alignToRight() {
     setAlignToRight()
+    renderCanvas()
 }
 function alignToLeft() {
     setAlignToLeft()
+    renderCanvas()
 }
 function addImg(img) {
     addNewImg(img)
+    renderCanvas()
 }
 
 

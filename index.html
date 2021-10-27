@@ -12,7 +12,7 @@
 <body onload="onInit()">
 
     <header class="main-header flex space-between align-center">
-        <div class="logo">Change</div>
+        <div class="logo"><img src="DESIGN/LOGO/LOGO.png" alt=""></div>
         <ul class="main-nav flex clean-list">
             <li><a href="#1">Gallery</a></li>
             <li><a href="#2">Memes</a></li>
@@ -20,12 +20,16 @@
         </ul>
     </header>
     <main class="main-content">
-        <input type="text">
-        <a href="">funny</a>
-        <a href="">animal</a>
-        <a href="">men</a>
-        <a href="">woman</a>
-        <a href="">more</a>
+        <div class="options flex space-between align-center">
+            <input type="text" placeholder="Search">
+            <ul>
+                <a href="">funny</a>
+                <a href="">animal</a>
+                <a href="">men</a>
+                <a href="">woman</a>
+                <a href="">more</a>
+            </ul>
+        </div>
 
         <div class="main-screen flex ">
 
@@ -42,15 +46,14 @@
                 <button onclick="alignToLeft()" class="align-to-left"></button>
 
                 <!-- <button onclick="addImg()" class="add-img"></button> -->
-                <input type="file"  name="image" onchange="onImgInput(event)" />
+                <input type="file" name="image" onchange="onImgInput(event)" />
 
                 <button onclick="" class="up-and-down"></button>
 
-                
+
                 <input class="paint-board-and-brush-txt" onchange="onTxtColorChange(this.value)" type="color"
                     name="petColor" />
-                <input class="paint-board-and-brush-back" onchange="onBackColorChange(this.value)" type="color"
-                    name="petColor" />
+                <input class="paint-board-and-brush-back" onchange="onBackColorChange(this.value)" type="color" />
 
 
                 <div class="links">
@@ -63,8 +66,10 @@
             </div>
 
         </div>
+
         <div class="images grid"></div>
     </main>
+
 
 
     <script src="js/service/utils-service.js"></script>

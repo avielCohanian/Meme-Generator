@@ -37,18 +37,19 @@ var gMeme = {
 var gCurrMeme = {
     selectedImgId: 0,
     lines: {
-        txt: '',
-        size: 20,
+        txt: [{ x: 100, y: 50, txt: '' }],
+        size: 40,
         align: 'center-text-alignmentleft',
-        colorTxt: 'black',
-        colorBackground: 'white'
+        colorTxt: 'white',
+        colorBackground: 'black',
+        isDrag: false,
     }
 }
 
 function getImgs() {
     return gImgs
 }
-function getCurrImgs() {
+function getCurrImg() {
     return gCurrMeme
 }
 
@@ -56,7 +57,7 @@ function setCurrImgId(elId) {
     gCurrMeme.selectedImgId = elId
 }
 function setCurrImgTxt(txt) {
-    gCurrMeme.lines.txt = txt
+    gCurrMeme.lines.txt[0].txt = txt
     drawText(txt)
     // console.log(txt);
 }
@@ -82,30 +83,64 @@ function setAlignToLeft() {
     gCurrMeme.lines.align = 'align-to-left'
 }
 function addNewImg(img) {
-    gImgs.push( { id: gId++, url: img, keywords: ['happy'] })
+    gImgs.push({ id: gId++, url: img, keywords: ['happy'] })
+    setCurrImgId(gId)
 }
 
 
-
+function isTxtClicked(y) {
+    const distance = gCurrMeme.lines.txt.find(txt => {
+        return y >= txt.y && y <= txt.y+gCurrMeme.lines.size
+    })
+    if (distance) return true
+}
 
 
 function drawText(txt) {
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = 'brown';
-    gCtx.fillStyle = 'black';
-    gCtx.font = '40px Arial';
-    gCtx.fillText(txt, 10, 50);
-    gCtx.strokeText(txt, 10, 50);
+    gCtx.lineWidth = 1;
+    // gCtx.textAlign = "center"
+    gCtx.strokeStyle = `${gCurrMeme.lines.colorBackground}`;
+    gCtx.fillStyle = `${gCurrMeme.lines.colorTxt}`;
+    gCtx.font = `${gCurrMeme.lines.size}px Arial`;
+    // gCtx.textBaseline = 'middle'
+    gCtx.fillText(txt, gCurrMeme.lines.txt[0].x, gCurrMeme.lines.txt[0].y);
+    gCtx.strokeText(txt, gCurrMeme.lines.txt[0].x, gCurrMeme.lines.txt[0].y);
 }
 
 
+function setTxtDrag(isDrag) {
+    gCurrMeme.lines.isDrag = isDrag
+}
 
 
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    // console.log(pos);
+    return pos
+}
 
+function movecurrImg(dx, dy) {
+    gCurrMeme.lines.txt[0].x += dx
+    gCurrMeme.lines.txt[0].y += dy
 
+}
 
-
-
+function resizeCanvas() {
+    const elContainer = document.querySelector('canvas')
+    gCanvas.width = elContainer.offsetWidth
+    gCanvas.height = elContainer.offsetHeight
+}
 
 function doUploadImg(imgDataUrl, onSuccess) {
 
