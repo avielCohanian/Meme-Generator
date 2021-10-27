@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+
+
+html {
+    font-family: lato, 'Trebuchet MS';
+    color: #606060;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+}
+
+
+
+
+/* helpers */
+/* flex */
+
+.flex {
+    display: flex;
+}
+
+.flex.align-center {
+    align-items: center;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.flex.flex-wrap {
+    flex-wrap: wrap;
+}
+
+
+/* list helpers */
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+}
