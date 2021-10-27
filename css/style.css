@@ -27,22 +27,27 @@ img {
 
 
 /* header */
-
-.main-nav a{
-padding: 15px;
-margin-inline-end: 10px;
-border-radius: 20px;
-color: #FFFFFF;
+header {
+    position: fixed
 }
 
-.main-nav a:hover{
+.main-nav a {
+    padding: 15px;
+    margin-inline-end: 10px;
+    border-radius: 20px;
+    color: #FFFFFF;
+}
+
+.main-nav a:hover {
     background-color: #FEFEFE;
     color: #5970C1;
 }
 
-.main-header{
-background-color: #5970C1;
-border-radius: 20px;
+.main-header {
+    background-color: #5970C1;
+    border-radius: 20px;
+    height: 6.25em;
+    width: 100%;
 }
 
 .logo img {
@@ -65,26 +70,33 @@ border-radius: 20px;
 
 /* main */
 
-main{
+main {
     background-color: #383B42;
+    padding-top: 6.25em;
 }
 
-.options{
-    padding: 50px;
+.options {
     text-align: center;
 }
-.options > input{
+
+.options input {
     color: #FEFEFE;
     background-color: #22252C;
     border-radius: 10px;
 }
-.options > ul{
+
+.options ul {
     color: #FEFEFE;
     background-color: lightslategrey;
     border-radius: 10px;
     padding: 10px;
 }
 
+.options a {
+    margin-inline-end: 20px;
+
+
+}
 
 /* SCREENS */
 
@@ -100,7 +112,8 @@ main{
     pointer-events: none;
     opacity: 0;
     transition: opacity .6s;
-    margin-top: 20px;
+    margin-top: 6.25em;
+    padding-top: 3em;
 }
 
 
@@ -166,6 +179,14 @@ body.do-meme .main-screen {
 
 .upload {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/facebook-logo.png');
+}
+
+.up {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up.png');
+}
+
+.down {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/down.png');
 }
 
 /* helpers */

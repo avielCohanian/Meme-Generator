@@ -1,6 +1,6 @@
 'use strict';
 var gId = 19;
-
+var gSortBy;
 // var gKeywords = {'happy': 12,'funny puk': 1}
 var gImgs = [
     { id: 1, url: `meme-imgs/1.jpg`, keywords: ['happy'] },
@@ -12,16 +12,18 @@ var gImgs = [
     { id: 7, url: `meme-imgs/7.jpg`, keywords: ['happy'] },
     { id: 8, url: `meme-imgs/8.jpg`, keywords: ['happy'] },
     { id: 9, url: `meme-imgs/9.jpg`, keywords: ['happy'] },
-    { id: 10, url: `meme-imgs/10.jpg`, keywords: ['happy'] },
+    { id: 10, url: `meme-imgs/10.jpg`, keywords: ['happy','Woman'] },
     { id: 11, url: `meme-imgs/11.jpg`, keywords: ['happy'] },
     { id: 12, url: `meme-imgs/12.jpg`, keywords: ['happy'] },
     { id: 13, url: `meme-imgs/13.jpg`, keywords: ['happy'] },
     { id: 14, url: `meme-imgs/14.jpg`, keywords: ['happy'] },
-    { id: 15, url: `meme-imgs/15.jpg`, keywords: ['happy'] },
-    { id: 16, url: `meme-imgs/16.jpg`, keywords: ['happy'] },
+    { id: 15, url: `meme-imgs/15.jpg`, keywords: ['Funny'] },
+    { id: 16, url: `meme-imgs/16.jpg`, keywords: ['happy', 'Funny'] },
     { id: 17, url: `meme-imgs/17.jpg`, keywords: ['happy'] },
     { id: 18, url: `meme-imgs/18.jpg`, keywords: ['happy'] },
 ];
+var gShowImgs = gImgs
+
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
@@ -47,10 +49,22 @@ var gCurrMeme = {
 }
 
 function getImgs() {
-    return gImgs
+    return gShowImgs
 }
 function getCurrImg() {
     return gCurrMeme
+}
+function getImgsForDisplaySort() {
+    let sortImgs = gImgs.filter((img) => {
+        return img.keywords.some(key => key === gSortBy)
+    })
+    gShowImgs = sortImgs
+    console.log(gShowImgs);
+}
+
+function setSort(val) {
+    gSortBy = val
+    getImgsForDisplaySort()
 }
 
 function setCurrImgId(elId) {
@@ -59,7 +73,6 @@ function setCurrImgId(elId) {
 function setCurrImgTxt(txt) {
     gCurrMeme.lines.txt[0].txt = txt
     drawText(txt)
-    // console.log(txt);
 }
 function setTxtColor(color) {
     gCurrMeme.lines.colorTxt = color
@@ -86,11 +99,17 @@ function addNewImg(img) {
     gImgs.push({ id: gId++, url: img, keywords: ['happy'] })
     setCurrImgId(gId)
 }
+function upTxt() {
+    gCurrMeme.lines.txt[0].y -= 1
+}
+function downTxt() {
+    gCurrMeme.lines.txt[0].y += 1
+}
 
 
 function isTxtClicked(y) {
     const distance = gCurrMeme.lines.txt.find(txt => {
-        return y >= txt.y && y <= txt.y+gCurrMeme.lines.size
+        return y >= txt.y && y <= txt.y + gCurrMeme.lines.size
     })
     if (distance) return true
 }

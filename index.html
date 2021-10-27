@@ -21,12 +21,15 @@
     </header>
     <main class="main-content">
         <div class="options flex space-between align-center">
-            <input type="text" placeholder="Search">
+            <div>
+                <input type="text" placeholder="Search">
+                <a onclick="onSearch()">🔍</a>
+            </div>
             <ul>
-                <a href="">funny</a>
-                <a href="">animal</a>
-                <a href="">men</a>
-                <a href="">woman</a>
+                <a onclick="onSort('Funny')">funny</a>
+                <a onclick="onSort('Animal')">animal</a>
+                <a onclick="onSort('Men')">men</a>
+                <a onclick="onSort('Woman')">woman</a>
                 <a href="">more</a>
             </ul>
         </div>
@@ -49,6 +52,8 @@
                 <input type="file" name="image" onchange="onImgInput(event)" />
 
                 <button onclick="" class="up-and-down"></button>
+                <button onclick="onUpTxt()" class="up"></button>
+                <button onclick="onDownTxt()" class="down"></button>
 
 
                 <input class="paint-board-and-brush-txt" onchange="onTxtColorChange(this.value)" type="color"

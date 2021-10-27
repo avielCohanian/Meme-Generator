@@ -1,7 +1,7 @@
 'use strict'
 var gCanvas;
 var gCtx;
-var  gStartPos;
+var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -22,8 +22,6 @@ function renderCanvas() {
     SelectImg(currImg.id)
     openImg(currImg.url)
     drawText(currCanvasImg.lines.txt[0].txt)
-
-    //     renderCircle()
 }
 
 function addListeners() {
@@ -92,10 +90,10 @@ function SelectImg(elId) {
     setCurrImgId(elId)
 }
 
-function openImg(url){
+function openImg(url) {
     var img = new Image()
     img.src = url
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
 }
 
 function onDrawText(txt) {
@@ -135,6 +133,23 @@ function alignToLeft() {
 function addImg(img) {
     addNewImg(img)
     renderCanvas()
+}
+function onUpTxt() {
+    upTxt()
+    renderCanvas()
+}
+function onDownTxt() {
+    downTxt()
+    renderCanvas()
+}
+function onSearch() {
+    let val = document.querySelector('.options input').value
+    setSort(val)
+    renderImgs()
+}
+function onSort(val) {
+    setSort(val)
+    renderImgs()
 }
 
 
