@@ -19,8 +19,94 @@ img {
     width: 200px;
 }
 
+.images {
+    grid-template-columns: repeat(5, 1fr);
+    /* grid-auto-rows: minmax(50px, 1fr); */
+    /* grid-template-rows: minmax(50px, 1fr); */
+    grid-gap: 20px;
+}
 
 
+/* SCREENS */
+
+.main-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100em;
+    height: 100em;
+    background-color: rgba(255, 249, 249, 0.856);
+    /* background-color: black; */
+    /* cursor: pointer; */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+    margin-top: 20px;
+}
+
+
+body.do-meme .main-screen {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.img-editing {
+    width: 10em;
+    height: 100em;
+    text-align: center;
+}
+
+.canvas-meme {
+    flex-basis: 50%;
+    text-align: center;
+}
+
+.img-editing button {
+    background-position: center center;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+/* icons */
+.increase-font {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/increase font - icon.png');
+}
+
+.decrease-font {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/decrease font - icon.png');
+}
+
+.center-text-alignment {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/center-text-alignment.png');
+}
+
+.align-to-right {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-right.png');
+}
+
+.align-to-left {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-left.png');
+}
+
+.add-img {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/add.png');
+}
+
+.up-and-down {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png');
+}
+
+.paint-board-and-brush-txt {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
+}
+
+.paint-board-and-brush-back {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
+}
+.upload {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/facebook-logo.png');
+}
 
 /* helpers */
 /* flex */
@@ -49,4 +135,11 @@ img {
     padding: 0;
     list-style-type: none;
 
+}
+
+
+/* grid */
+
+.grid {
+    display: grid;
 }

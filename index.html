@@ -12,7 +12,7 @@
 <body onload="onInit()">
 
     <header class="main-header flex space-between align-center">
-        <div class="logo">Blogin<span>.</span></div>
+        <div class="logo">Change</div>
         <ul class="main-nav flex clean-list">
             <li><a href="#1">Gallery</a></li>
             <li><a href="#2">Memes</a></li>
@@ -26,10 +26,45 @@
         <a href="">men</a>
         <a href="">woman</a>
         <a href="">more</a>
+
+        <div class="main-screen flex ">
+
+            <div class="canvas-meme ">
+                <canvas width="400" height="400" style="outline:1px solid green"></canvas>
+            </div>
+
+            <div class="img-editing">
+                <input onkeyup="onDrawText(this.value)" type="text">
+                <button onclick="increaseFont()" class="increase-font btn"></button>
+                <button onclick="decreaseFont()" class="decrease-font"></button>
+                <button onclick="centerTextAlignment()" class="center-text-alignment"></button>
+                <button onclick="alignToRight()" class="align-to-right"></button>
+                <button onclick="alignToLeft()" class="align-to-left"></button>
+
+                <!-- <button onclick="addImg()" class="add-img"></button> -->
+                <input type="file"  name="image" onchange="onImgInput(event)" />
+
+                <button onclick="" class="up-and-down"></button>
+
+                
+                <input class="paint-board-and-brush-txt" onchange="onTxtColorChange(this.value)" type="color"
+                    name="petColor" />
+                <input class="paint-board-and-brush-back" onchange="onBackColorChange(this.value)" type="color"
+                    name="petColor" />
+
+
+                <div class="links">
+                    <button class="upload" onclick="uploadImg()"></button>
+
+                    <a href="#" class="btn" onclick="downloadImg(this)" download="my-Drawing.jpg">Download</a>
+                    <p class="user-msg"></p>
+                    <div class="share-container"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="images grid"></div>
     </main>
-
-
-    <div class="images"></div>
 
 
     <script src="js/service/utils-service.js"></script>
