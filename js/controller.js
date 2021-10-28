@@ -132,7 +132,7 @@ function centerTextAlignment() {
     setCenterTextAlignment()
     renderCanvas()
 }
-function alignToRight() {
+function onAlignToRight() {
     setAlignToRight()
     renderCanvas()
 }
@@ -159,13 +159,22 @@ function onSaveMeme() {
     saveMeme()
     renderCanvas()
 }
+function onDeletMeme() {
+    let storageImg = loadMyMemes()
+    console.log(storageImg);
+    let currMeme = getCurrImg()
+    let currMemeStorage = storageImg.filter(img => img.selectedImgId === currMeme.selectedImgId)
+    console.log(currMemeStorage);
+    deletMeme(currMemeStorage)
+    closeImgEditing()
+    onMyMeme()
+}
 function onSearch() {
     let val = document.querySelector('.options input').value
     setSort(val)
     renderImgs()
 }
 function onSort(val, el) {
-    // console.log(x.style.fontSize);
     setSize(el)
     setSort(val)
     renderImgs()
@@ -185,6 +194,10 @@ function onMoveTxtLine() {
 function onMyMeme() {
     document.body.classList.add('my-meme')
     let storageImg = loadMyMemes()
+    console.log(storageImg);
+    if (!storageImg.length) {
+        return document.querySelector('.memes-page-img').innerHTML = ''
+    }
     let imgs = storageImg.map(img => {
         return getImgById(img.selectedImgId)
     })
@@ -193,7 +206,7 @@ function onMyMeme() {
     imgs.forEach((img, idx) => {
         strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>`
     })
-    document.querySelector('.memes-page').innerHTML = strHtml
+    document.querySelector('.memes-page-img').innerHTML = strHtml
 }
 function closeMemePage() {
     document.body.classList.remove('my-meme')
@@ -209,11 +222,11 @@ function SelectMemeImg(elId) {
     openImg(findImg.url)
     setCurrImgId(elId)
 
-    let currMeme = storageImg.filter(img =>img.selectedImgId === findImg.id )
+    let currMeme = storageImg.filter(img => img.selectedImgId === findImg.id)
     console.log(currMeme[0]);
     gCurrMeme = currMeme[0]
     drawText()
-  
+
 }
 
 function onImgInput(ev) {

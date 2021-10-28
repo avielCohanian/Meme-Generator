@@ -22,8 +22,8 @@ a {
 }
 
 img {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
 }
 
 .btn {
@@ -31,22 +31,21 @@ img {
     cursor: pointer;
 }
 
-.btn :hover {
-    background-color: lightslategrey;
-}
 
 /* header */
 header {
     position: fixed
 }
 
-.main-nav a {
-    padding: 15px;
-    margin-inline-end: 10px;
-    border-radius: 20px;
+
+/* hamburger */
+/* .main-nav a {
+    padding: .2em;
+    margin-inline-end: .425em;
+    border-radius: 1.25em;
     color: #FFFFFF;
-    font-size: 20px;
-}
+    font-size: 1.25em;
+} */
 
 .main-nav a:hover {
     background-color: #FEFEFE;
@@ -56,14 +55,10 @@ header {
 .main-header {
     background-color: #5970C1;
     border-radius: 20px;
-    height: 6.25em;
+    height: 3.25em;
     width: 100%;
 }
 
-.logo img {
-    height: 100px;
-    width: 200px;
-}
 
 
 
@@ -71,18 +66,13 @@ header {
 
 
 
-.images {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 50px));
-    /* grid-auto-rows: minmax(50px, 1fr); */
-    /* grid-template-rows: minmax(50px, 1fr); */
-    grid-gap: 20px;
-}
+
 
 /* main */
 
 main {
     background-color: #383B42;
-    padding-top: 6.25em;
+    padding-top: 3.25em;
 }
 
 .options {
@@ -98,8 +88,9 @@ main {
 .options ul {
     color: #FEFEFE;
     background-color: lightslategrey;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: .625em;
+    padding: .325em;
+    font-size: 10px;
 }
 
 .options ul>a {
@@ -124,9 +115,10 @@ main {
     left: 170px;
 }
 
+
 /* memes page */
 
-.memes-page{
+.memes-page {
     position: fixed;
     top: 0;
     left: 0;
@@ -160,24 +152,19 @@ body.my-meme .memes-page {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    /* background-color: black; */
-    /* cursor: pointer; */
     pointer-events: none;
     opacity: 0;
     transition: opacity .6s;
-    margin-top: 6.25em;
+    margin-top: 3.25em;
     padding-top: 3em;
 }
 
-.main-screen .close-main-screen {
-    /* position: absolute; */
+.close-main-screen {
     font-size: 20px;
-    margin-top: 100px;
-    /* top: 10px;
-    left:  90%; */
+    /* margin-top: 100px; */
     color: black;
     padding: 10px;
-    background-color:rgba(255, 249, 249, 0.5);
+    background-color: rgba(255, 249, 249, 0.5);
 }
 
 body.do-meme .main-screen {
@@ -189,22 +176,20 @@ body.do-meme .main-screen {
     text-align: center;
     flex-basis: 50%;
     display: grid;
-    grid-template-columns: repeat(3, 80px);
-    grid-template-rows: repeat(7, 60px);
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(7, 50px);
     grid-template-areas:
-        "txtMeme txtMeme  add-txt"
-        "up  decrease-font increase-font "
-        "down up-and-down . "
-        "align-to-left center-text-alignment align-to-right"
-        "paint-board-and-brush-txt . paint-board-and-brush-back"
-        " imgUp imgUp ."
-        " . links  .";
+        " txtMeme txtMeme txtMeme  txtMeme  ."
+        "up  decrease-font increase-font add-txt . "
+        "down up-and-down save  dalet . "
+        "align-to-left center-text-alignment align-to-right  links links"
+        "paint-board-and-brush-txt . . paint-board-and-brush-back ."
+        " imgUp imgUp imgUp imgUp imgUp"
+        " . . .  . .";
 }
 
 .img-editing .txtMeme {
     grid-area: txtMeme;
-    width: 150px;
-    /* margin-bottom: 10px; */
     border-radius: 10px;
     height: 25px;
 }
@@ -261,6 +246,14 @@ body.do-meme .main-screen {
     grid-area: links;
 }
 
+.img-editing .save {
+    grid-area: save;
+}
+
+.img-editing .delet {
+    grid-area: dalet;
+}
+
 .img-editing .links .share-show {
     position: absolute;
     height: 200px;
@@ -295,7 +288,13 @@ body.do-meme .main-screen {
 .canvas-meme {
     flex-basis: 50%;
     text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
+
+
 
 .img-editing button {
     background-position: center center;
@@ -375,6 +374,16 @@ body.do-meme .main-screen {
     background-color: lightyellow;
 }
 
+.save {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/save.png');
+    background-color: lightyellow;
+}
+
+.delet {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/trash.png');
+    background-color: lightyellow;
+}
+
 /* helpers */
 /* flex */
 
@@ -409,4 +418,126 @@ body.do-meme .main-screen {
 
 .grid {
     display: grid;
+}
+
+@media screen and (max-width: 670px) {
+    .images {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 5px;
+    }
+
+    .logo img {
+        height: 50px;
+        width: 150px;
+        left: 100px;
+    }
+
+    .options {
+        flex-direction: column;
+    }
+
+    .main-screen {
+        flex-direction: column;
+        align-content: stretch;
+        align-items: center;
+    }
+
+    canvas {
+        width: 300px;
+        height: 300px;
+    }
+
+    .img-editing .txtMeme {
+        grid-area: txtMeme;
+        width: 150px;
+        border-radius: 10px;
+        height: 25px;
+    }
+
+    .img-editing button {
+        height: 30px;
+        width: 30px;
+    }
+}
+
+
+
+
+/* large */
+
+
+@media screen and (min-width: 670px) {
+    img {
+        height: 250px;
+        width: 250px;
+    }
+
+    .logo img {
+        height: 50px;
+        width: 150px;
+        left: 100px;
+    }
+
+    .btn :hover {
+        background-color: lightslategrey;
+    }
+
+    .main-nav a {
+        padding: 1em;
+        margin-inline-end: .625em;
+        border-radius: 1.25em;
+        color: #FFFFFF;
+        font-size: 1.25em;
+    }
+
+    .main-header {
+        height: 6.25em;
+    }
+
+    .images {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+    main {
+        padding-top: 6.25em;
+    }
+
+    .options ul {
+        padding: .625em;
+    }
+
+    .main-screen {
+        margin-top: 6.25em;
+    }
+
+    .img-editing {
+        text-align: center;
+        flex-basis: 50%;
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(7, 60px);
+        grid-template-areas:
+            "txtMeme txtMeme  add-txt"
+            "up  decrease-font increase-font "
+            "down up-and-down save "
+            "align-to-left center-text-alignment align-to-right"
+            "paint-board-and-brush-txt dalet paint-board-and-brush-back"
+            " imgUp imgUp imgUp"
+            " . links  .";
+    }
+
+    canvas {
+        width: 400px;
+        height: 400px;
+    }
+
+    .img-editing .txtMeme {
+        width: 150px;
+    }
+
+    .img-editing button {
+        height: 50px;
+        width: 50px;
+    }
 }

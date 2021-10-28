@@ -2,7 +2,7 @@
 var gId = 19;
 var gSortBy;
 const KEY = 'MEMES'
-var gMemes = []
+var gMemes;
 // var gKeywords = {'happy': 12,'funny puk': 1}
 var gImgs = [
     { id: 1, url: `meme-imgs/1.jpg`, keywords: ['happy'] },
@@ -44,8 +44,8 @@ function restMeme() {
 }
 function loadMyMemes() {
     gMemes = loadFromStorage(KEY)
-    if(!gMemes){
-        gMemes =[]
+    if (!gMemes) {
+        gMemes = []
     }
     return gMemes
 }
@@ -110,12 +110,15 @@ function setDecreaseFont() {
 }
 function setCenterTextAlignment() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'center-text-alignment'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gCanvas.width / 2
 }
 function setAlignToRight() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-right'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gCanvas.width - 20
 }
 function setAlignToLeft() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-left'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = 20
 }
 function addNewImg(img) {
     gImgs.push({ id: gId++, url: img, keywords: ['happy'] })
@@ -131,6 +134,10 @@ function saveMeme() {
     console.log(gMemes);
     console.log(gCurrMeme);
     gMemes.push(gCurrMeme)
+    _saveMemeToStorage()
+}
+function deletMeme(NewMemes) {
+    gMemes = NewMemes
     _saveMemeToStorage()
 }
 
