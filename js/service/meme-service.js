@@ -12,7 +12,7 @@ var gImgs = [
     { id: 7, url: `meme-imgs/7.jpg`, keywords: ['happy'] },
     { id: 8, url: `meme-imgs/8.jpg`, keywords: ['happy'] },
     { id: 9, url: `meme-imgs/9.jpg`, keywords: ['happy'] },
-    { id: 10, url: `meme-imgs/10.jpg`, keywords: ['happy','Woman'] },
+    { id: 10, url: `meme-imgs/10.jpg`, keywords: ['happy', 'Woman'] },
     { id: 11, url: `meme-imgs/11.jpg`, keywords: ['happy'] },
     { id: 12, url: `meme-imgs/12.jpg`, keywords: ['happy'] },
     { id: 13, url: `meme-imgs/13.jpg`, keywords: ['happy'] },
@@ -38,14 +38,16 @@ var gMeme = {
 }
 var gCurrMeme = {
     selectedImgId: 0,
-    lines: {
-        txt: [{ x: 100, y: 50, txt: '' }],
+    selectedLineIdx: 0,
+    lines: [{
+        txtObj: { x: 100, y: 50, txt: '', id: 0 },
         size: 40,
         align: 'center-text-alignmentleft',
         colorTxt: 'white',
         colorBackground: 'black',
         isDrag: false,
     }
+    ]
 }
 
 function getImgs() {
@@ -55,80 +57,129 @@ function getCurrImg() {
     return gCurrMeme
 }
 function getImgsForDisplaySort() {
+    if (gSortBy === 'Gallery') {
+        gShowImgs = gImgs
+        return
+    }
     let sortImgs = gImgs.filter((img) => {
         return img.keywords.some(key => key === gSortBy)
     })
     gShowImgs = sortImgs
-    console.log(gShowImgs);
 }
 
 function setSort(val) {
     gSortBy = val
     getImgsForDisplaySort()
 }
+function setSize(el) {
+    var allCategory =document.querySelectorAll('.category a')
+    allCategory.forEach(category=> category.style.fontSize = '1rem')
+    if (el) {
+        el.style.fontSize = '50px'
+    }
+    
+
+}
 
 function setCurrImgId(elId) {
     gCurrMeme.selectedImgId = elId
 }
 function setCurrImgTxt(txt) {
-    gCurrMeme.lines.txt[0].txt = txt
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.txt = txt
     drawText(txt)
 }
 function setTxtColor(color) {
-    gCurrMeme.lines.colorTxt = color
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].colorTxt = color
 }
 function setBackgroundColor(color) {
-    gCurrMeme.lines.colorBackground = color
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].colorBackground = color
 }
 function setIncreaseFont() {
-    gCurrMeme.lines.size += 1
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].size += 1
 }
 function setDecreaseFont() {
-    gCurrMeme.lines.size -= 1
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].size -= 1
 }
 function setCenterTextAlignment() {
-    gCurrMeme.lines.align = 'center-text-alignment'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'center-text-alignment'
 }
 function setAlignToRight() {
-    gCurrMeme.lines.align = 'align-to-right'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-right'
 }
 function setAlignToLeft() {
-    gCurrMeme.lines.align = 'align-to-left'
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-left'
 }
 function addNewImg(img) {
     gImgs.push({ id: gId++, url: img, keywords: ['happy'] })
     setCurrImgId(gId)
 }
 function upTxt() {
-    gCurrMeme.lines.txt[0].y -= 1
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y -= 1
 }
 function downTxt() {
-    gCurrMeme.lines.txt[0].y += 1
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y += 1
+}
+function addTxt() {
+    let y;
+    if (gCurrMeme.lines.length < 2) {
+        y = gCanvas.height - 50
+    } else {
+        y = gCanvas.height / 2
+    }
+    let newTxt = {
+        txtObj: {
+            x: 100, y: y, txt: ''
+            , id: gCurrMeme.lines.length
+        },
+        size: 40,
+        align: 'center-text-alignmentleft',
+        colorTxt: 'white',
+        colorBackground: 'black',
+        isDrag: false,
+    }
+    gCurrMeme.selectedLineIdx = gCurrMeme.lines.length
+    gCurrMeme.lines.push(newTxt)
 }
 
+function moveTxtLine() {
+    gCurrMeme.selectedLineIdx++
+    if (gCurrMeme.selectedLineIdx > gCurrMeme.lines.length - 1) {
+        gCurrMeme.selectedLineIdx = 0
+    }
+}
 
-function isTxtClicked(y) {
-    const distance = gCurrMeme.lines.txt.find(txt => {
-        return y >= txt.y && y <= txt.y + gCurrMeme.lines.size
+function isTxtClicked(y, x) {
+    // console.log(y);
+    const distance = gCurrMeme.lines.find(pos => {
+        console.log(gCurrMeme.lines);
+        return y >= pos.txtObj.y - pos.size && y <= pos.txtObj.y && (x >= pos.txtObj.x || x <= pos.txtObj.x)
     })
-    if (distance) return true
+    console.log(distance.txtObj.id);
+    if (distance) {
+        gCurrMeme.selectedLineIdx = distance.txtObj.id
+        return true
+    }
 }
 
 
-function drawText(txt) {
-    gCtx.lineWidth = 1;
-    // gCtx.textAlign = "center"
-    gCtx.strokeStyle = `${gCurrMeme.lines.colorBackground}`;
-    gCtx.fillStyle = `${gCurrMeme.lines.colorTxt}`;
-    gCtx.font = `${gCurrMeme.lines.size}px Arial`;
-    // gCtx.textBaseline = 'middle'
-    gCtx.fillText(txt, gCurrMeme.lines.txt[0].x, gCurrMeme.lines.txt[0].y);
-    gCtx.strokeText(txt, gCurrMeme.lines.txt[0].x, gCurrMeme.lines.txt[0].y);
+function drawText() {
+    gCurrMeme.lines.forEach((currImgTxt) => {
+        gCtx.lineWidth = 1;
+        // gCtx.textAlign = "center"
+        gCtx.strokeStyle = `${currImgTxt.colorBackground}`;
+        gCtx.fillStyle = `${currImgTxt.colorTxt}`;
+        gCtx.font = `${currImgTxt.size}px Arial`;
+        // gCtx.textBaseline = 'middle'
+        gCtx.fillText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
+        gCtx.strokeText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
+        // console.log('aa');
+    });
 }
 
 
-function setTxtDrag(isDrag) {
-    gCurrMeme.lines.isDrag = isDrag
+function setTxtDrag(drag) {
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].isDrag = drag
+    // console.log(gCurrMeme.lines[gCurrMeme.selectedLineIdx].isDrag);
 }
 
 
@@ -145,13 +196,12 @@ function getEvPos(ev) {
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
         }
     }
-    // console.log(pos);
     return pos
 }
 
 function movecurrImg(dx, dy) {
-    gCurrMeme.lines.txt[0].x += dx
-    gCurrMeme.lines.txt[0].y += dy
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x += dx
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y += dy
 
 }
 

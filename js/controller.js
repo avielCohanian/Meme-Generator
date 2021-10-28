@@ -21,15 +21,16 @@ function renderCanvas() {
     let currImg = imgs.find(img => img.id === currCanvasImg.selectedImgId)
     SelectImg(currImg.id)
     openImg(currImg.url)
-    drawText(currCanvasImg.lines.txt[0].txt)
+    drawText()
+    // drawText(currCanvasImg.lines[].txt.txt)
 }
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
     window.addEventListener('resize', () => {
-        resizeCanvas()
-        renderCanvas()
+        // resizeCanvas()
+        // renderCanvas()
     })
 }
 
@@ -47,15 +48,19 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (!isTxtClicked(ev.offsetY)) return
+    if (!isTxtClicked(ev.offsetY, ev.offsetX)) return
     setTxtDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
+
+
+    let currImg = getCurrImg();
+    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
 }
 
 function onMove(ev) {
     const currImg = getCurrImg();
-    if (currImg.lines.isDrag) {
+    if (currImg.lines[gCurrMeme.selectedLineIdx].isDrag) {
         const pos = getEvPos(ev)
         console.log(pos);
         const dx = pos.x - gStartPos.x
@@ -95,9 +100,13 @@ function openImg(url) {
     img.src = url
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
 }
+function closeImgEditing() {
+    document.body.classList.remove('do-meme')
+    let currImg = getCurrImg();
+    document.querySelector('.txtMeme').value = ''
+}
 
 function onDrawText(txt) {
-    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     setCurrImgTxt(txt)
     renderCanvas()
 }
@@ -147,11 +156,24 @@ function onSearch() {
     setSort(val)
     renderImgs()
 }
-function onSort(val) {
+function onSort(val, el) {
+    // console.log(x.style.fontSize);
+    setSize(el)
     setSort(val)
     renderImgs()
 }
-
+function onAddTxt() {
+    addTxt()
+    let currImg = getCurrImg();
+    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    renderImgs()
+}
+function onMoveTxtLine() {
+    moveTxtLine()
+    let currImg = getCurrImg();
+    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    // renderImgs()
+}
 
 
 
@@ -194,11 +216,15 @@ function uploadImg() {
     function onSuccess(uploadedImgUrl) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
-
+        document.querySelector('.share-show').hidden = false
         document.querySelector('.share-container').innerHTML = `
         <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
+        Share   
         </a>`
     }
     doUploadImg(imgDataUrl, onSuccess);
+}
+
+function closeShare() {
+    document.querySelector('.share-show').hidden = true
 }

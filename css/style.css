@@ -18,6 +18,7 @@ body {
 a {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 
 img {
@@ -25,6 +26,14 @@ img {
     width: 200px;
 }
 
+.btn {
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn :hover {
+    background-color: lightslategrey;
+}
 
 /* header */
 header {
@@ -36,6 +45,7 @@ header {
     margin-inline-end: 10px;
     border-radius: 20px;
     color: #FFFFFF;
+    font-size: 20px;
 }
 
 .main-nav a:hover {
@@ -92,10 +102,26 @@ main {
     padding: 10px;
 }
 
+.options ul>a {
+    font-size: 1em;
+}
+
 .options a {
     margin-inline-end: 20px;
+}
 
+.serch-txt {
+    position: relative;
+}
 
+.serch-txt input {
+    width: 200px;
+    height: 25px;
+}
+
+.serch-txt a {
+    position: absolute;
+    left: 170px;
 }
 
 /* SCREENS */
@@ -104,9 +130,13 @@ main {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100em;
-    height: 100em;
+    width: 100%;
+    height: 100vh;
     background-color: rgba(255, 249, 249, 0.856);
+    background-image: url("../meme-imgs/bcg-img/backImg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     /* background-color: black; */
     /* cursor: pointer; */
     pointer-events: none;
@@ -116,6 +146,16 @@ main {
     padding-top: 3em;
 }
 
+.main-screen .close-main-screen {
+    /* position: absolute; */
+    font-size: 20px;
+    margin-top: 100px;
+    /* top: 10px;
+    left:  90%; */
+    color: black;
+    padding: 10px;
+    background-color:rgba(255, 249, 249, 0.5);
+}
 
 body.do-meme .main-screen {
     pointer-events: auto;
@@ -123,10 +163,111 @@ body.do-meme .main-screen {
 }
 
 .img-editing {
-    width: 10em;
-    height: 100em;
     text-align: center;
+    flex-basis: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(7, 60px);
+    grid-template-areas:
+        "txtMeme txtMeme  add-txt"
+        "up  decrease-font increase-font "
+        "down up-and-down . "
+        "align-to-left center-text-alignment align-to-right"
+        "paint-board-and-brush-txt . paint-board-and-brush-back"
+        " imgUp imgUp ."
+        " . links  .";
 }
+
+.img-editing .txtMeme {
+    grid-area: txtMeme;
+    width: 150px;
+    /* margin-bottom: 10px; */
+    border-radius: 10px;
+    height: 25px;
+}
+
+.img-editing .increase-font {
+    grid-area: increase-font;
+}
+
+.img-editing .decrease-font {
+    grid-area: decrease-font;
+}
+
+.img-editing .add-txt {
+    grid-area: add-txt;
+}
+
+.img-editing .center-text-alignment {
+    grid-area: center-text-alignment;
+}
+
+.img-editing .align-to-right {
+    grid-area: align-to-right;
+}
+
+.img-editing .align-to-left {
+    grid-area: align-to-left;
+}
+
+.img-editing .imgUp {
+    grid-area: imgUp;
+}
+
+.img-editing .up-and-down {
+    grid-area: up-and-down;
+}
+
+.img-editing .up {
+    grid-area: up;
+}
+
+.img-editing .down {
+    grid-area: down;
+}
+
+.img-editing .paint-board-and-brush-txt {
+    grid-area: paint-board-and-brush-txt;
+}
+
+.img-editing .paint-board-and-brush-back {
+    grid-area: paint-board-and-brush-back;
+}
+
+.img-editing .links {
+    grid-area: links;
+}
+
+.img-editing .links .share-show {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    color: lightyellow;
+    background-image: url(../meme-imgs/7.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-editing .links .close-share {
+    position: absolute;
+    /* color: black; */
+    font-size: 20px;
+    top: 10px;
+    left: 90%;
+}
+
+.img-editing .links .user-msg {
+    margin-top: 50px;
+}
+
+.img-editing .links .share-container {
+    font-size: 30px;
+}
+
 
 .canvas-meme {
     flex-basis: 50%;
@@ -143,50 +284,72 @@ body.do-meme .main-screen {
 /* icons */
 .increase-font {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/increase font - icon.png');
+    background-color: lightyellow;
 }
 
 .decrease-font {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/decrease font - icon.png');
+    background-color: lightyellow;
 }
 
 .center-text-alignment {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/center-text-alignment.png');
+    background-color: lightyellow;
 }
 
 .align-to-right {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-right.png');
+    background-color: lightyellow;
 }
 
 .align-to-left {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-left.png');
+    background-color: lightyellow;
 }
 
 .add-img {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/add.png');
+    /* background-color:lightyellow; */
+    color: lightyellow;
 }
 
 .up-and-down {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png');
+    background-color: lightyellow;
 }
 
 .paint-board-and-brush-txt {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
+    background-color: lightyellow;
 }
 
 .paint-board-and-brush-back {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
+    background-color: lightyellow;
 }
 
 .upload {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/facebook-logo.png');
+    background-color: lightblue;
+}
+
+.txtDownload {
+    color: lightyellow;
 }
 
 .up {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up.png');
+    background-color: lightyellow;
 }
 
 .down {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/down.png');
+    background-color: lightyellow;
+}
+
+.add-txt {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/add.png');
+    background-color: lightyellow;
 }
 
 /* helpers */
