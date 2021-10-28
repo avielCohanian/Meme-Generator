@@ -39,6 +39,21 @@ header {
 
 
 /* hamburger */
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #FFFFFF;
+    margin: 6px 0;
+    transition: 0.4s;
+    /* right: 10px; */
+}
+
+.menu {
+    display: none;
+}
+
 /* .main-nav a {
     padding: .2em;
     margin-inline-end: .425em;
@@ -58,14 +73,6 @@ header {
     height: 3.25em;
     width: 100%;
 }
-
-
-
-
-
-
-
-
 
 
 /* main */
@@ -108,11 +115,13 @@ main {
 .serch-txt input {
     width: 200px;
     height: 25px;
+    margin-top: 1.25em;
 }
 
 .serch-txt a {
     position: absolute;
     left: 170px;
+    margin-top: 1.25em;
 }
 
 
@@ -125,8 +134,6 @@ main {
     width: 100%;
     height: 100vh;
     background-color: rgba(255, 249, 249, 0.856);
-    /* background-color: black; */
-    /* cursor: pointer; */
     pointer-events: none;
     opacity: 0;
     transition: opacity .6s;
@@ -138,6 +145,29 @@ body.my-meme .memes-page {
     pointer-events: auto;
     opacity: 1;
 }
+
+/* main-screen-mnu */
+
+.main-screen-mnu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .25);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+}
+
+body.menu-open .main-screen-mnu {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+
+
 
 /* SCREENS */
 
@@ -422,7 +452,7 @@ body.do-meme .main-screen {
 
 @media screen and (max-width: 670px) {
     .images {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         grid-gap: 5px;
     }
 
@@ -430,6 +460,45 @@ body.do-meme .main-screen {
         height: 50px;
         width: 150px;
         left: 100px;
+    }
+
+    .menu {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        flex-direction: column;
+        background-color: rgba(107, 103, 103, 0.9);
+        width: 200px;
+        transform: translateX(100%);
+        border-inline-start: 1px solid #e0e0e0;
+        transition: transform .6s, box-shadow .6s;
+    }
+
+    body.menu-open .main-nav {
+        transform: translateX(0);
+        box-shadow: -2px -2px 20px rgba(0, 0, 0, .25);
+    }
+
+    body.menu-open .serch-txt a {
+        opacity: 0.2;
+    }
+
+    body.menu-open .serch-txt  input {
+        opacity: 0.2;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 10px 16px;
+        border-bottom: 1px solid #e0e0e0;
+        transition: .3s;
+        color: whitesmoke;
     }
 
     .options {
@@ -505,6 +574,10 @@ body.do-meme .main-screen {
 
     .options ul {
         padding: .625em;
+    }
+
+    .options ul>a {
+        font-size: 2em;
     }
 
     .main-screen {

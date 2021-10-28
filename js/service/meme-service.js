@@ -173,13 +173,11 @@ function moveTxtLine() {
     }
 }
 
-function isTxtClicked(y, x) {
-    // console.log(y);
+function isTxtClicked({ y, x }) {
     const distance = gCurrMeme.lines.find(pos => {
         console.log(gCurrMeme.lines);
-        return y >= pos.txtObj.y - pos.size && y <= pos.txtObj.y && (x >= pos.txtObj.x || x <= pos.txtObj.x)
+        return y + pos.size >= pos.txtObj.y && y - pos.size <= pos.txtObj.y && (x >= pos.txtObj.x || x <= pos.txtObj.x)
     })
-    console.log(distance.txtObj.id);
     if (distance) {
         gCurrMeme.selectedLineIdx = distance.txtObj.id
         return true
@@ -190,21 +188,17 @@ function isTxtClicked(y, x) {
 function drawText() {
     gCurrMeme.lines.forEach((currImgTxt) => {
         gCtx.lineWidth = 1;
-        // gCtx.textAlign = "center"
         gCtx.strokeStyle = `${currImgTxt.colorBackground}`;
         gCtx.fillStyle = `${currImgTxt.colorTxt}`;
         gCtx.font = `${currImgTxt.size}px Arial`;
-        // gCtx.textBaseline = 'middle'
         gCtx.fillText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
         gCtx.strokeText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
-        // console.log('aa');
     });
 }
 
 
 function setTxtDrag(drag) {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].isDrag = drag
-    // console.log(gCurrMeme.lines[gCurrMeme.selectedLineIdx].isDrag);
 }
 
 
@@ -213,6 +207,7 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
+    console.log(gTouchEvs.includes(ev.type));
     if (gTouchEvs.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
@@ -221,6 +216,7 @@ function getEvPos(ev) {
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
         }
     }
+    console.log(pos);
     return pos
 }
 

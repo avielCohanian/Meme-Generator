@@ -29,10 +29,10 @@ function renderCanvas() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    window.addEventListener('resize', () => {
-        // resizeCanvas()
-        // renderCanvas()
-    })
+    // window.addEventListener('resize', () => {
+    //     resizeCanvas()
+    //     renderCanvas()
+    // })
 }
 
 function addMouseListeners() {
@@ -49,7 +49,8 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (!isTxtClicked(ev.offsetY, ev.offsetX)) return
+    if (!isTxtClicked(pos)) return
+    console.log(!isTxtClicked(pos));
     setTxtDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
@@ -279,4 +280,8 @@ function uploadImg() {
 
 function closeShare() {
     document.querySelector('.share-show').hidden = true
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
 }
