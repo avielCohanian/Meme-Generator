@@ -3,21 +3,22 @@ var gCanvas;
 var gCtx;
 var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
-
+var gStorageId = 0
 
 
 function onInit() {
     renderImgs()
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d');
-
+    restMeme()
 
     addListeners()
+    loadMyMemes()
 }
 
 function renderCanvas() {
     let currCanvasImg = getCurrImg()
-    let imgs = getImgs()
+    let imgs = getSortImgs()
     let currImg = imgs.find(img => img.id === currCanvasImg.selectedImgId)
     SelectImg(currImg.id)
     openImg(currImg.url)
@@ -79,7 +80,7 @@ function onUp() {
 
 
 function renderImgs() {
-    let imgs = getImgs()
+    let imgs = getSortImgs()
     let strHtml = ''
     imgs.forEach(img => {
         strHtml += ` <img onclick="SelectImg(${img.id})" src=${img.url}>`
@@ -88,7 +89,7 @@ function renderImgs() {
 }
 
 function SelectImg(elId) {
-    let imgs = getImgs()
+    let imgs = getSortImgs()
     let currImg = imgs.find(img => img.id === elId)
     document.body.classList.add('do-meme')
     openImg(currImg.url)
@@ -102,8 +103,8 @@ function openImg(url) {
 }
 function closeImgEditing() {
     document.body.classList.remove('do-meme')
-    let currImg = getCurrImg();
     document.querySelector('.txtMeme').value = ''
+    restMeme()
 }
 
 function onDrawText(txt) {
@@ -151,6 +152,13 @@ function onDownTxt() {
     downTxt()
     renderCanvas()
 }
+function onSaveMeme() {
+    let currImg = getCurrImg()
+    // currImg.selectedImgId = gStorageId
+    // img.id = gStorageId++
+    saveMeme()
+    renderCanvas()
+}
 function onSearch() {
     let val = document.querySelector('.options input').value
     setSort(val)
@@ -174,8 +182,39 @@ function onMoveTxtLine() {
     document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
     // renderImgs()
 }
+function onMyMeme() {
+    document.body.classList.add('my-meme')
+    let storageImg = loadMyMemes()
+    let imgs = storageImg.map(img => {
+        return getImgById(img.selectedImgId)
+    })
+    console.log(imgs);
+    let strHtml = ''
+    imgs.forEach((img, idx) => {
+        strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>`
+    })
+    document.querySelector('.memes-page').innerHTML = strHtml
+}
+function closeMemePage() {
+    document.body.classList.remove('my-meme')
+}
 
+function SelectMemeImg(elId) {
+    let storageImg = loadMyMemes()
+    let allImg = getImgs()
+    // console.log(storageImg);
+    let findImg = allImg.find(img => img.id === storageImg[elId].selectedImgId) //url
+    // console.log(findImg); 
+    document.body.classList.add('do-meme')
+    openImg(findImg.url)
+    setCurrImgId(elId)
 
+    let currMeme = storageImg.filter(img =>img.selectedImgId === findImg.id )
+    console.log(currMeme[0]);
+    gCurrMeme = currMeme[0]
+    drawText()
+  
+}
 
 function onImgInput(ev) {
     loadImageFromInput(ev, renderImg)

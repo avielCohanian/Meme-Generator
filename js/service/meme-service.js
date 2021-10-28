@@ -1,6 +1,8 @@
 'use strict';
 var gId = 19;
 var gSortBy;
+const KEY = 'MEMES'
+var gMemes = []
 // var gKeywords = {'happy': 12,'funny puk': 1}
 var gImgs = [
     { id: 1, url: `meme-imgs/1.jpg`, keywords: ['happy'] },
@@ -23,35 +25,36 @@ var gImgs = [
     { id: 18, url: `meme-imgs/18.jpg`, keywords: ['happy'] },
 ];
 var gShowImgs = gImgs
+var gCurrMeme;
 
-var gMeme = {
-    selectedImgId: 5,
-    selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'I never eat Falafel',
-            size: 20,
-            align: 'left',
-            color: 'red'
+function restMeme() {
+    gCurrMeme = {
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        lines: [{
+            txtObj: { x: 100, y: 50, txt: '', id: 0 },
+            size: 40,
+            align: 'center-text-alignmentleft',
+            colorTxt: 'white',
+            colorBackground: 'black',
+            isDrag: false,
         }
-    ]
-}
-var gCurrMeme = {
-    selectedImgId: 0,
-    selectedLineIdx: 0,
-    lines: [{
-        txtObj: { x: 100, y: 50, txt: '', id: 0 },
-        size: 40,
-        align: 'center-text-alignmentleft',
-        colorTxt: 'white',
-        colorBackground: 'black',
-        isDrag: false,
+        ]
     }
-    ]
+}
+function loadMyMemes() {
+    gMemes = loadFromStorage(KEY)
+    if(!gMemes){
+        gMemes =[]
+    }
+    return gMemes
 }
 
-function getImgs() {
+function getSortImgs() {
     return gShowImgs
+}
+function getImgs() {
+    return gImgs
 }
 function getCurrImg() {
     return gCurrMeme
@@ -67,17 +70,22 @@ function getImgsForDisplaySort() {
     gShowImgs = sortImgs
 }
 
+function getImgById(id) {
+    let currImg = gImgs.find(img => img.id === id)
+    return currImg
+}
+
 function setSort(val) {
     gSortBy = val
     getImgsForDisplaySort()
 }
 function setSize(el) {
-    var allCategory =document.querySelectorAll('.category a')
-    allCategory.forEach(category=> category.style.fontSize = '1rem')
+    var allCategory = document.querySelectorAll('.category a')
+    allCategory.forEach(category => category.style.fontSize = '1rem')
     if (el) {
         el.style.fontSize = '50px'
     }
-    
+
 
 }
 
@@ -86,7 +94,7 @@ function setCurrImgId(elId) {
 }
 function setCurrImgTxt(txt) {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.txt = txt
-    drawText(txt)
+    drawText()
 }
 function setTxtColor(color) {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].colorTxt = color
@@ -119,6 +127,16 @@ function upTxt() {
 function downTxt() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y += 1
 }
+function saveMeme() {
+    console.log(gMemes);
+    console.log(gCurrMeme);
+    gMemes.push(gCurrMeme)
+    _saveMemeToStorage()
+}
+
+
+
+
 function addTxt() {
     let y;
     if (gCurrMeme.lines.length < 2) {
@@ -228,4 +246,10 @@ function doUploadImg(imgDataUrl, onSuccess) {
         .catch((err) => {
             console.error(err)
         })
+}
+
+
+
+function _saveMemeToStorage() {
+    saveToStorage(KEY, gMemes)
 }

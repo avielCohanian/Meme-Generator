@@ -15,7 +15,7 @@
         <div class="logo"><img src="DESIGN/LOGO/LOGO.png" alt=""></div>
         <ul class="main-nav flex clean-list">
             <li><a onclick="onSort('Gallery')">Gallery</a></li>
-            <li><a href="#2">Memes</a></li>
+            <li><a onclick="onMyMeme()">Memes</a></li>
             <li><a href="#3">About</a></li>
         </ul>
     </header>
@@ -34,8 +34,12 @@
             </ul>
         </div>
 
+        <div class="memes-page">
+            <a class="close-main-screen btn" onclick="closeMemePage()">Back</a>
+        </div>
+
         <div class="main-screen flex ">
-            
+
             <div class="canvas-meme ">
                 <canvas width="400" height="400" style="outline:1px solid green"></canvas>
                 <a class="close-main-screen btn" onclick="closeImgEditing()">Back</a>
@@ -54,6 +58,7 @@
                 <input type="file" name="image" onchange="onImgInput(event)" class="imgUp add-img btn" />
 
                 <button onclick="onMoveTxtLine()" class="up-and-down btn"></button>
+                <button onclick="onSaveMeme()" class="save btn"></button>
                 <button onclick="onUpTxt()" class="up btn"></button>
                 <button onclick="onDownTxt()" class="down btn"></button>
 
@@ -67,12 +72,12 @@
                     <button class="upload" onclick="uploadImg()"></button>
 
                     <a href="#" class="txtDownload" onclick="downloadImg(this)" download="my-Drawing.jpg">Download</a>
-                    
+
                     <div class="share-show" hidden>
                         <a class="close-share" onclick="closeShare()">X</a>
                         <p class="user-msg"></p>
                         <div class="share-container"></div>
-                    </div>   
+                    </div>
                 </div>
             </div>
 
