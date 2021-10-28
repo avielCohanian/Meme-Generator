@@ -186,7 +186,7 @@ body.menu-open .main-screen-mnu {
     opacity: 0;
     transition: opacity .6s;
     margin-top: 3.25em;
-    padding-top: 3em;
+    padding-top: 1em;
 }
 
 .close-main-screen {
@@ -202,6 +202,7 @@ body.do-meme .main-screen {
     opacity: 1;
 }
 
+
 .img-editing {
     text-align: center;
     flex-basis: 50%;
@@ -209,9 +210,9 @@ body.do-meme .main-screen {
     grid-template-columns: repeat(5, 40px);
     grid-template-rows: repeat(7, 50px);
     grid-template-areas:
-        " txtMeme txtMeme txtMeme  txtMeme  ."
-        "up  decrease-font increase-font add-txt . "
-        "down up-and-down save  dalet . "
+        " txtMeme txtMeme txtMeme  txtMeme   emojis"
+        "up  decrease-font increase-font add-txt emojis "
+        "down up-and-down save  dalet emojis "
         "align-to-left center-text-alignment align-to-right  links links"
         "paint-board-and-brush-txt . . paint-board-and-brush-back ."
         " imgUp imgUp imgUp imgUp imgUp"
@@ -284,6 +285,20 @@ body.do-meme .main-screen {
     grid-area: dalet;
 }
 
+.emojis {
+    grid-area: emojis;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.246);
+    border: 1px solid black;
+    height: 40px;
+}
+
+.emojis a {
+    padding: 10px;
+    border: 1px solid black;
+}
+
 .img-editing .links .share-show {
     position: absolute;
     height: 200px;
@@ -331,6 +346,10 @@ body.do-meme .main-screen {
     background-size: cover;
     height: 50px;
     width: 50px;
+}
+
+.images {
+    margin-left: 10px;
 }
 
 /* icons */
@@ -489,7 +508,7 @@ body.do-meme .main-screen {
         opacity: 0.2;
     }
 
-    body.menu-open .serch-txt  input {
+    body.menu-open .serch-txt input {
         opacity: 0.2;
     }
 
@@ -582,22 +601,25 @@ body.do-meme .main-screen {
 
     .main-screen {
         margin-top: 6.25em;
+        padding-top: 3em;
     }
+
+
 
     .img-editing {
         text-align: center;
         flex-basis: 50%;
         display: grid;
-        grid-template-columns: repeat(3, 80px);
+        grid-template-columns: repeat(4, 80px);
         grid-template-rows: repeat(7, 60px);
         grid-template-areas:
-            "txtMeme txtMeme  add-txt"
-            "up  decrease-font increase-font "
-            "down up-and-down save "
-            "align-to-left center-text-alignment align-to-right"
-            "paint-board-and-brush-txt dalet paint-board-and-brush-back"
-            " imgUp imgUp imgUp"
-            " . links  .";
+            "txtMeme txtMeme  add-txt ."
+            "up  decrease-font increase-font emojis"
+            "down up-and-down save emojis"
+            "align-to-left center-text-alignment align-to-right emojis"
+            "paint-board-and-brush-txt dalet paint-board-and-brush-back ."
+            " imgUp imgUp imgUp ."
+            " . links  . .";
     }
 
     canvas {
@@ -612,5 +634,9 @@ body.do-meme .main-screen {
     .img-editing button {
         height: 50px;
         width: 50px;
+    }
+
+    .canvas-meme {
+        margin-left: 10px;
     }
 }

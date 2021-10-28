@@ -1,31 +1,45 @@
 'use strict';
-var gId = 19;
-var gSortBy;
+
+
+const PAGE_SIZE = 3
 const KEY = 'MEMES'
+const EMOJIS = ['😈', '👿', '💩', '👻', '☠️', '😋', '🤩', '🧐', '😎', '🤛', '🧟‍♂️', '🎃']
+var gPageIdx = 0
+var gId = 1;
+var gAllImg = 18;
+var gSortBy;
 var gMemes;
 // var gKeywords = {'happy': 12,'funny puk': 1}
-var gImgs = [
-    { id: 1, url: `meme-imgs/1.jpg`, keywords: ['happy'] },
-    { id: 2, url: `meme-imgs/2.jpg`, keywords: ['happy'] },
-    { id: 3, url: `meme-imgs/3.jpg`, keywords: ['happy'] },
-    { id: 4, url: `meme-imgs/4.jpg`, keywords: ['happy'] },
-    { id: 5, url: `meme-imgs/5.jpg`, keywords: ['happy'] },
-    { id: 6, url: `meme-imgs/6.jpg`, keywords: ['happy'] },
-    { id: 7, url: `meme-imgs/7.jpg`, keywords: ['happy'] },
-    { id: 8, url: `meme-imgs/8.jpg`, keywords: ['happy'] },
-    { id: 9, url: `meme-imgs/9.jpg`, keywords: ['happy'] },
-    { id: 10, url: `meme-imgs/10.jpg`, keywords: ['happy', 'Woman'] },
-    { id: 11, url: `meme-imgs/11.jpg`, keywords: ['happy'] },
-    { id: 12, url: `meme-imgs/12.jpg`, keywords: ['happy'] },
-    { id: 13, url: `meme-imgs/13.jpg`, keywords: ['happy'] },
-    { id: 14, url: `meme-imgs/14.jpg`, keywords: ['happy'] },
-    { id: 15, url: `meme-imgs/15.jpg`, keywords: ['Funny'] },
-    { id: 16, url: `meme-imgs/16.jpg`, keywords: ['happy', 'Funny'] },
-    { id: 17, url: `meme-imgs/17.jpg`, keywords: ['happy'] },
-    { id: 18, url: `meme-imgs/18.jpg`, keywords: ['happy'] },
-];
+var gImgs = [];
+_createImgs()
 var gShowImgs = gImgs
 var gCurrMeme;
+
+
+
+
+
+function _createImgs() {
+    let imgs = []
+
+    for (var i = 0; i < gAllImg; i++) {
+        let keywords = []
+        if (i % 2) { keywords.push('Woman') }
+        if (i % 3) { keywords.push('Funny') }
+        if (i % 4) { keywords.push('Men') }
+        if (i % 5) { keywords.push('Animal') }
+        let img = _createImg(keywords)
+        gImgs.push(img)
+    }
+}
+
+function _createImg(keywords) {
+    return {
+        url: `meme-imgs/${gId}.jpg`,
+        id: gId++,
+        keywords,
+    }
+}
 
 function restMeme() {
     gCurrMeme = {
@@ -230,6 +244,21 @@ function resizeCanvas() {
     const elContainer = document.querySelector('canvas')
     gCanvas.width = elContainer.offsetWidth
     gCanvas.height = elContainer.offsetHeight
+}
+
+
+function getEmoji() {
+    let emojis = EMOJIS
+    const fromIdx = gPageIdx * PAGE_SIZE
+    emojis = emojis.slice(fromIdx, fromIdx + PAGE_SIZE)
+    return emojis
+}
+
+function nextPage() {
+    gPageIdx++;
+    if (gPageIdx * PAGE_SIZE >= EMOJIS.length) {
+        gPageIdx = 0;
+    }
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {

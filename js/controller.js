@@ -11,9 +11,9 @@ function onInit() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d');
     restMeme()
-
     addListeners()
     loadMyMemes()
+    renderEmoji()
 }
 
 function renderCanvas() {
@@ -23,16 +23,11 @@ function renderCanvas() {
     SelectImg(currImg.id)
     openImg(currImg.url)
     drawText()
-    // drawText(currCanvasImg.lines[].txt.txt)
 }
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas()
-    //     renderCanvas()
-    // })
 }
 
 function addMouseListeners() {
@@ -192,6 +187,15 @@ function onMoveTxtLine() {
     document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
     // renderImgs()
 }
+function onNextPage() {
+    nextPage()
+    renderEmoji()
+}
+function emojiCanvas(el){
+console.log(el.innerText);
+onDrawText(el.innerText)
+}
+
 function onMyMeme() {
     document.body.classList.add('my-meme')
     let storageImg = loadMyMemes()
@@ -256,6 +260,13 @@ function renderImg(img) {
     console.log(img);
 }
 
+function renderEmoji() {
+    let emojis = getEmoji()
+    let elEmojis = document.querySelectorAll('.emoji')
+    elEmojis.forEach((emoji, idx) => {
+        emoji.innerText = emojis[idx]
+    })
+}
 
 function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpg')
