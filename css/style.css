@@ -289,14 +289,19 @@ body.do-meme .main-screen {
     grid-area: emojis;
     flex-direction: column;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.246);
     border: 1px solid black;
-    height: 40px;
+    height: 0px;
 }
 
 .emojis a {
-    padding: 10px;
+    padding: 5px;
     border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.63);
+}
+
+.emojis .next-page-btn{
+    color: black;
+    font-size: 1.5em;
 }
 
 .img-editing .links .share-show {
@@ -546,6 +551,7 @@ body.do-meme .main-screen {
         height: 30px;
         width: 30px;
     }
+
 }
 
 
@@ -638,5 +644,8 @@ body.do-meme .main-screen {
 
     .canvas-meme {
         margin-left: 10px;
+    }
+    .emojis a {
+        padding: 10px;
     }
 }

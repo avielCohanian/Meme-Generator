@@ -191,9 +191,8 @@ function onNextPage() {
     nextPage()
     renderEmoji()
 }
-function emojiCanvas(el){
-console.log(el.innerText);
-onDrawText(el.innerText)
+function emojiCanvas(el) {
+    onDrawText(el.innerText)
 }
 
 function onMyMeme() {
