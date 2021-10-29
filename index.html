@@ -12,11 +12,17 @@
 <body onload="onInit()">
     <div class="main-screen-mnu" onclick="toggleMenu()"></div>
     <header class="main-header flex space-between align-center">
-        <div class="logo"><img src="DESIGN/LOGO/LOGO.png" alt=""></div>
+        <div class="logo flex"><img src="DESIGN/LOGO/LOGO.png" alt="">
+            <select class="form-control-xsm btn" onchange="onSetLang(this.value)">
+                <option value="en">English</option>
+                <option value="he">עברית</option>
+            </select>
+        </div>
+
         <ul class="main-nav flex clean-list">
-            <li><a onclick="onSort('Gallery')">Gallery</a></li>
-            <li><a onclick="onMyMeme()">Memes</a></li>
-            <li><a href="#3">About</a></li>
+            <li><a onclick="onSort('Gallery')" data-trans="gallery">Gallery</a></li>
+            <li><a onclick="onMyMeme()" data-trans="memes">Memes</a></li>
+            <li><a href="#3" data-trans="about">About</a></li>
         </ul>
         <div class="menu" onclick="toggleMenu()">
             <div class="bar1"></div>
@@ -27,35 +33,35 @@
     <main class="main-content">
         <div class="options flex space-between align-center">
             <div class="serch-txt">
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" data-trans="search">
                 <a onclick="onSearch()">🔍</a>
             </div>
             <ul class="category">
-                <a onclick="onSort('Funny',this)">funny</a>
-                <a onclick="onSort('Animal',this)">animal</a>
-                <a onclick="onSort('Men',this)">men</a>
-                <a onclick="onSort('Woman',this)">woman</a>
-                <a onclick="oenMore()">more...</a>
+                <a onclick="onSort('Funny',this)" data-trans="funny">funny</a>
+                <a onclick="onSort('Animal',this)" data-trans="animal">animal</a>
+                <a onclick="onSort('Men',this)" data-trans="men">men</a>
+                <a onclick="onSort('Woman',this)" data-trans="woman">woman</a>
+                <a onclick="oenMore()" data-trans="more...">more...</a>
                 <ul class="dropDown" hidden>
-                    <a onclick="onSort('Bird',this)">bird</a>
-                    <a onclick="onSort('Smile',this)">smile</a>
-                    <a onclick="onSort('Fat',this)">fat</a>
-                    <a onclick="onSort('Dog',this)">dog</a>
-                    <a onclick="closeMore()">close X</a>
+                    <a onclick="onSort('Bird',this)" data-trans="bird">bird</a>
+                    <a onclick="onSort('Smile',this)" data-trans="smile">smile</a>
+                    <a onclick="onSort('Fat',this)" data-trans="fat">fat</a>
+                    <a onclick="onSort('Dog',this)" data-trans="dog">dog</a>
+                    <a onclick="closeMore()" data-trans="close">close X</a>
                 </ul>
             </ul>
         </div>
         <div class="memes-page">
             <div class="memes-page-img">
             </div>
-            <a class="close-main-screen btn" onclick="closeMemePage()">Back</a>
+            <a class="close-main-screen btn" onclick="closeMemePage()" data-trans="back">Back</a>
         </div>
 
         <div class="main-screen flex ">
 
             <div class="canvas-meme ">
                 <canvas width="400" height="400" style="outline:1px solid green"></canvas>
-                <a class="close-main-screen btn" onclick="closeImgEditing()">Back</a>
+                <a class="close-main-screen btn" onclick="closeImgEditing()" data-trans="back">Back</a>
             </div>
 
             <div class="img-editing">
@@ -74,7 +80,7 @@
                 <button onclick="onRestMeme()" class="delet btn"></button>
                 <button onclick="onSaveMeme()" class="save btn"></button>
                 <div class="save-show" hidden>
-                    <p class="user-msg">Meme Save</p>
+                    <p class="user-msg " data-trans="meme-save">Meme Save</p>
                 </div>
 
 
@@ -117,6 +123,7 @@
 
 
     <script src="js/service/utils-service.js"></script>
+    <script src="js/service/i18n-service.js"></script>
     <script src="js/service/storage-service.js"></script>
     <script src="js/service/meme-service.js"></script>
     <script src="js/controller.js"></script>

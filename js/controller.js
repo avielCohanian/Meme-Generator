@@ -14,6 +14,7 @@ function onInit() {
     addListeners()
     loadMyMemes()
     renderEmoji()
+    onSetLang('en')
 }
 
 function renderCanvas() {
@@ -228,9 +229,10 @@ function onMyMeme() {
     console.log(imgs);
     let strHtml = ''
     imgs.forEach((img, idx) => {
-        strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>  <button onclick="onDeletMeme()" class="delet btn">delet</button>`
+        strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>  <button onclick="onDeletMeme()" class="delet btn" data-trans="delet">delet</button>`
     })
     document.querySelector('.memes-page-img').innerHTML = strHtml
+    doTrans()
 }
 function closeMemePage() {
     document.body.classList.remove('my-meme')
@@ -252,6 +254,23 @@ function SelectMemeImg(elId) {
 function onImgInput(ev) {
     loadImageFromInput(ev, renderImg)
 }
+
+function doTrans() {
+    var els = document.querySelectorAll('[data-trans]')
+    els.forEach((el) => {
+        if (el.nodeName === 'INPUT') {
+            el.placeholder = getTransText(el)
+        } else {
+            el.innerText = getTransText(el)
+        }
+    })
+}
+
+function onSetLang(lang) {
+    setLang(lang);
+    doTrans();
+}
+
 
 function loadImageFromInput(ev, onImageReady) {
     document.querySelector('canvas').innerHTML = ''
