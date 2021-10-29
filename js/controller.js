@@ -51,8 +51,10 @@ function onDown(ev) {
     document.body.style.cursor = 'grabbing'
 
 
-    let currImg = getCurrImg();
-    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    let img = getCurrImg();
+    let currImg = img.lines[gCurrMeme.selectedLineIdx]
+    document.querySelector('.txt-meme').value = currImg.txtObj.txt
+    stripe(currImg.txtObj.x, currImg.txtObj.y, currImg.size)
 }
 
 function onMove(ev) {
@@ -72,8 +74,6 @@ function onUp() {
     setTxtDrag(false)
     document.body.style.cursor = 'grab'
 }
-
-
 
 function renderImgs() {
     let imgs = getSortImgs()
@@ -99,8 +99,8 @@ function openImg(url) {
 }
 function closeImgEditing() {
     document.body.classList.remove('do-meme')
-    document.querySelector('.txtMeme').value = ''
-    restMeme()
+    document.querySelector('.txt-meme').value = ''
+    // restMeme()
 }
 
 function onDrawText(txt) {
@@ -153,12 +153,25 @@ function onSaveMeme() {
     // currImg.selectedImgId = gStorageId
     // img.id = gStorageId++
     saveMeme()
-    renderCanvas()
+    // renderCanvas()
+    document.querySelector('.save-show').hidden = false
+    setTimeout(() => {
+        document.querySelector('.save-show').hidden = true
+        onRestMeme()
+    }, 1500);
 }
+function onRestMeme() {
+    let currImg = getCurrImg()
+    restMeme(currImg.selectedImgId)
+    document.querySelector('.txt-meme').value = ''
+    SelectImg(currImg.selectedImgId)
+}
+
 function onDeletMeme() {
-    let storageImg = loadMyMemes()
+    let storageImg = loadMyMemes() //gMemes
     console.log(storageImg);
     let currMeme = getCurrImg()
+    console.log(currMeme);
     let currMemeStorage = storageImg.filter(img => img.selectedImgId === currMeme.selectedImgId)
     console.log(currMemeStorage);
     deletMeme(currMemeStorage)
@@ -171,6 +184,10 @@ function onSearch() {
     renderImgs()
 }
 function onSort(val, el) {
+    if (val === 'Gallery') {
+        closeMemePage()
+        closeImgEditing()
+    }
     setSize(el)
     setSort(val)
     renderImgs()
@@ -178,13 +195,14 @@ function onSort(val, el) {
 function onAddTxt() {
     addTxt()
     let currImg = getCurrImg();
-    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    document.querySelector('.txt-meme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
     renderImgs()
 }
 function onMoveTxtLine() {
     moveTxtLine()
     let currImg = getCurrImg();
-    document.querySelector('.txtMeme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    document.querySelector('.txt-meme').value = currImg.lines[gCurrMeme.selectedLineIdx].txtObj.txt
+    // renderCanvas()
     // renderImgs()
 }
 function onNextPage() {
@@ -196,6 +214,8 @@ function emojiCanvas(el) {
 }
 
 function onMyMeme() {
+    closeMemePage()
+    closeImgEditing()
     document.body.classList.add('my-meme')
     let storageImg = loadMyMemes()
     console.log(storageImg);
@@ -208,7 +228,7 @@ function onMyMeme() {
     console.log(imgs);
     let strHtml = ''
     imgs.forEach((img, idx) => {
-        strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>`
+        strHtml += ` <img onclick="SelectMemeImg(${idx})" src=${img.url}>  <button onclick="onDeletMeme()" class="delet btn">delet</button>`
     })
     document.querySelector('.memes-page-img').innerHTML = strHtml
 }
@@ -217,20 +237,16 @@ function closeMemePage() {
 }
 
 function SelectMemeImg(elId) {
-    let storageImg = loadMyMemes()
-    let allImg = getImgs()
-    // console.log(storageImg);
+    let storageImg = loadMyMemes() //gMemes
+    let allImg = getImgs() //allImg
     let findImg = allImg.find(img => img.id === storageImg[elId].selectedImgId) //url
-    // console.log(findImg); 
     document.body.classList.add('do-meme')
     openImg(findImg.url)
-    setCurrImgId(elId)
-
+    // setCurrImgId(elId)
     let currMeme = storageImg.filter(img => img.selectedImgId === findImg.id)
     console.log(currMeme[0]);
     gCurrMeme = currMeme[0]
     drawText()
-
 }
 
 function onImgInput(ev) {
@@ -250,9 +266,6 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0])
 }
-
-
-
 
 function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
@@ -288,6 +301,12 @@ function uploadImg() {
     doUploadImg(imgDataUrl, onSuccess);
 }
 
+function oenMore() {
+    document.querySelector('.dropDown').hidden = false
+}
+function closeMore() {
+    document.querySelector('.dropDown').hidden = true
+}
 function closeShare() {
     document.querySelector('.share-show').hidden = true
 }

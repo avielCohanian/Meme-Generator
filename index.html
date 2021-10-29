@@ -35,7 +35,14 @@
                 <a onclick="onSort('Animal',this)">animal</a>
                 <a onclick="onSort('Men',this)">men</a>
                 <a onclick="onSort('Woman',this)">woman</a>
-                <a href="">more...</a>
+                <a onclick="oenMore()">more...</a>
+                <ul class="dropDown" hidden>
+                    <a onclick="onSort('Bird',this)">bird</a>
+                    <a onclick="onSort('Smile',this)">smile</a>
+                    <a onclick="onSort('Fat',this)">fat</a>
+                    <a onclick="onSort('Dog',this)">dog</a>
+                    <a onclick="closeMore()">close X</a>
+                </ul>
             </ul>
         </div>
         <div class="memes-page">
@@ -52,7 +59,7 @@
             </div>
 
             <div class="img-editing">
-                <input onkeyup="onDrawText(this.value)" class="txtMeme" type="text">
+                <input onkeyup="onDrawText(this.value)" class="txt-meme" type="text">
                 <button onclick="increaseFont()" class="increase-font btn"></button>
                 <button onclick="decreaseFont()" class="decrease-font btn"></button>
                 <button onclick="onAddTxt()" class="add-txt btn"></button>
@@ -60,12 +67,17 @@
                 <button onclick="onAlignToRight()" class="align-to-right btn"></button>
                 <button onclick="alignToLeft()" class="align-to-left btn"></button>
 
-                <!-- <button type="file"  name="image" onclick="onImgInput(event)" class=" imgUp add-img"></button> -->
                 <input type="file" name="image" onchange="onImgInput(event)" class="imgUp add-img btn" />
 
                 <button onclick="onMoveTxtLine()" class="up-and-down btn"></button>
-                <button onclick="onDeletMeme()" class="delet btn"></button>
+
+                <button onclick="onRestMeme()" class="delet btn"></button>
                 <button onclick="onSaveMeme()" class="save btn"></button>
+                <div class="save-show" hidden>
+                    <p class="user-msg">Meme Save</p>
+                </div>
+
+
                 <button onclick="onUpTxt()" class="up btn"></button>
                 <button onclick="onDownTxt()" class="down btn"></button>
 
@@ -76,18 +88,19 @@
                 <input class="paint-board-and-brush-back btn" onchange="onBackColorChange(this.value)" type="color" />
 
 
-                <div class="links">
-                    <button class="upload" onclick="uploadImg()"></button>
+                <!-- <div class="links"> -->
+                <button class="upload" onclick="uploadImg()"></button>
 
-                    <a href="#" class="txtDownload" onclick="downloadImg(this)" download="my-Drawing.jpg">Download</a>
+                <a href="#" class="txt-download" onclick="downloadImg(this)" download="my-Drawing.jpg"> <img
+                        src="/DESIGN/Meme1 - Sergei/ICONS/download.png" alt=""> </a>
 
-                    <div class="share-show" hidden>
-                        <a class="close-share" onclick="closeShare()">X</a>
-                        <p class="user-msg"></p>
-                        <div class="share-container"></div>
-                    </div>
-
+                <div class="share-show" hidden>
+                    <a class="close-share" onclick="closeShare()">X</a>
+                    <p class="user-msg"></p>
+                    <div class="share-container"></div>
                 </div>
+
+                <!-- </div> -->
                 <div class="emojis flex">
                     <a class="emoji" onclick="emojiCanvas(this)"></a>
                     <a class="emoji" onclick="emojiCanvas(this)"></a>

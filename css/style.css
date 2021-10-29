@@ -72,6 +72,7 @@ header {
     border-radius: 20px;
     height: 3.25em;
     width: 100%;
+    z-index: 1;
 }
 
 
@@ -191,7 +192,6 @@ body.menu-open .main-screen-mnu {
 
 .close-main-screen {
     font-size: 20px;
-    /* margin-top: 100px; */
     color: black;
     padding: 10px;
     background-color: rgba(255, 249, 249, 0.5);
@@ -210,17 +210,17 @@ body.do-meme .main-screen {
     grid-template-columns: repeat(5, 40px);
     grid-template-rows: repeat(7, 50px);
     grid-template-areas:
-        " txtMeme txtMeme txtMeme  txtMeme   emojis"
+        " txt-meme txt-meme txt-meme  txt-meme   emojis"
         "up  decrease-font increase-font add-txt emojis "
-        "down up-and-down save  dalet emojis "
-        "align-to-left center-text-alignment align-to-right  links links"
-        "paint-board-and-brush-txt . . paint-board-and-brush-back ."
-        " imgUp imgUp imgUp imgUp imgUp"
-        " . . .  . .";
+        "down  up-and-down save  dalet emojis "
+        "align-to-left center-text-alignment align-to-right .  upload"
+        "paint-board-and-brush-txt . paint-board-and-brush-back . txt-download"
+        " imgUp imgUp imgUp imgUp imgUp "
+        " . . . . .";
 }
 
-.img-editing .txtMeme {
-    grid-area: txtMeme;
+.img-editing .txt-meme {
+    grid-area: txt-meme;
     border-radius: 10px;
     height: 25px;
 }
@@ -273,8 +273,12 @@ body.do-meme .main-screen {
     grid-area: paint-board-and-brush-back;
 }
 
-.img-editing .links {
-    grid-area: links;
+.img-editing .txt-download {
+    grid-area: txt-download;
+}
+
+.img-editing .upload {
+    grid-area: upload;
 }
 
 .img-editing .save {
@@ -299,12 +303,26 @@ body.do-meme .main-screen {
     background-color: rgba(255, 255, 255, 0.63);
 }
 
-.emojis .next-page-btn{
+.emojis .next-page-btn {
     color: black;
     font-size: 1.5em;
 }
 
-.img-editing .links .share-show {
+.img-editing .save-show {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    color: lightyellow;
+    font-size: 4em;
+    background-image: url(../meme-imgs/5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.img-editing .share-show {
     position: absolute;
     height: 200px;
     width: 300px;
@@ -318,7 +336,7 @@ body.do-meme .main-screen {
     transform: translate(-50%, -50%);
 }
 
-.img-editing .links .close-share {
+.img-editing .close-share {
     position: absolute;
     /* color: black; */
     font-size: 20px;
@@ -326,11 +344,11 @@ body.do-meme .main-screen {
     left: 90%;
 }
 
-.img-editing .links .user-msg {
+.img-editing .user-msg {
     margin-top: 50px;
 }
 
-.img-editing .links .share-container {
+.img-editing .share-container {
     font-size: 30px;
 }
 
@@ -409,9 +427,6 @@ body.do-meme .main-screen {
     background-color: lightblue;
 }
 
-.txtDownload {
-    color: lightyellow;
-}
 
 .up {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up.png');
@@ -436,6 +451,12 @@ body.do-meme .main-screen {
 .delet {
     background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/trash.png');
     background-color: lightyellow;
+}
+
+.txt-download img {
+    background-color: lightyellow;
+    height: 30px;
+    width: 30px;
 }
 
 /* helpers */
@@ -540,8 +561,8 @@ body.do-meme .main-screen {
         height: 300px;
     }
 
-    .img-editing .txtMeme {
-        grid-area: txtMeme;
+    .img-editing .txt-meme {
+        grid-area: txt-meme;
         width: 150px;
         border-radius: 10px;
         height: 25px;
@@ -610,22 +631,29 @@ body.do-meme .main-screen {
         padding-top: 3em;
     }
 
-
+    .close-main-screen {
+        margin-top: 10px;
+    }
 
     .img-editing {
         text-align: center;
         flex-basis: 50%;
         display: grid;
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(7, 60px);
+        grid-template-columns: repeat(4, 60px);
+        grid-template-rows: repeat(7, 55px);
         grid-template-areas:
-            "txtMeme txtMeme  add-txt ."
-            "up  decrease-font increase-font emojis"
-            "down up-and-down save emojis"
+            "txt-meme txt-meme  . add-txt"
+            "up-and-down  decrease-font increase-font emojis"
+            "down up save emojis"
             "align-to-left center-text-alignment align-to-right emojis"
             "paint-board-and-brush-txt dalet paint-board-and-brush-back ."
             " imgUp imgUp imgUp ."
-            " . links  . .";
+            " upload .  . txt-download";
+    }
+
+    .txt-download img {
+        height: 50px;
+        width: 50px;
     }
 
     canvas {
@@ -633,7 +661,7 @@ body.do-meme .main-screen {
         height: 400px;
     }
 
-    .img-editing .txtMeme {
+    .img-editing .txt-meme {
         width: 150px;
     }
 
@@ -645,7 +673,8 @@ body.do-meme .main-screen {
     .canvas-meme {
         margin-left: 10px;
     }
+
     .emojis a {
-        padding: 10px;
+        padding: 5px;
     }
 }

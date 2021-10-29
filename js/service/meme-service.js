@@ -20,14 +20,12 @@ var gCurrMeme;
 
 
 function _createImgs() {
-    let imgs = []
-
     for (var i = 0; i < gAllImg; i++) {
         let keywords = []
-        if (i % 2) { keywords.push('Woman') }
+        if (i % 2) { keywords.push('Woman', 'Smile') }
         if (i % 3) { keywords.push('Funny') }
         if (i % 4) { keywords.push('Men') }
-        if (i % 5) { keywords.push('Animal') }
+        if (i % 5) { keywords.push('Animal', 'Dog', 'Bird') }
         let img = _createImg(keywords)
         gImgs.push(img)
     }
@@ -41,9 +39,9 @@ function _createImg(keywords) {
     }
 }
 
-function restMeme() {
+function restMeme(selectedImgId = 1) {
     gCurrMeme = {
-        selectedImgId: 1,
+        selectedImgId,
         selectedLineIdx: 0,
         lines: [{
             txtObj: { x: 100, y: 50, txt: '', id: 0 },
@@ -93,14 +91,13 @@ function setSort(val) {
     gSortBy = val
     getImgsForDisplaySort()
 }
-function setSize(el) {
+function setSize(el) {//
     var allCategory = document.querySelectorAll('.category a')
     allCategory.forEach(category => category.style.fontSize = '1rem')
     if (el) {
+        console.log(el.style.fontSize);
         el.style.fontSize = '50px'
     }
-
-
 }
 
 function setCurrImgId(elId) {
@@ -155,9 +152,6 @@ function deletMeme(NewMemes) {
     _saveMemeToStorage()
 }
 
-
-
-
 function addTxt() {
     let y;
     if (gCurrMeme.lines.length < 2) {
@@ -208,6 +202,28 @@ function drawText() {
         gCtx.fillText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
         gCtx.strokeText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
     });
+    stripe()
+}
+
+function stripe() {
+    let x = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x
+    let y = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y
+    let size = gCurrMeme.lines[gCurrMeme.selectedLineIdx].size
+
+    gCtx.beginPath();
+    gCtx.moveTo(x - 50, y + 10);
+    gCtx.lineTo(gCanvas.width - 20, y + 10);
+
+    gCtx.moveTo(x - 50, y - (size + 5));
+    gCtx.lineTo(gCanvas.width - 20, y - (size + 5));
+
+    gCtx.moveTo(x - 50, y + 10);
+    gCtx.lineTo(x - 50, y - (size + 5));
+
+
+    gCtx.moveTo(gCanvas.width - 20, y + 10);
+    gCtx.lineTo(gCanvas.width - 20, y - (size + 5));
+    gCtx.stroke()
 }
 
 
@@ -221,7 +237,6 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    console.log(gTouchEvs.includes(ev.type));
     if (gTouchEvs.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
