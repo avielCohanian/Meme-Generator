@@ -186,6 +186,7 @@ function onSearch() {
 }
 function onSort(val, el) {
     if (val === 'Gallery') {
+        document.body.classList.remove('menu-open');
         closeMemePage()
         closeImgEditing()
     }
@@ -217,6 +218,7 @@ function emojiCanvas(el) {
 function onMyMeme() {
     closeMemePage()
     closeImgEditing()
+    document.body.classList.remove('menu-open');
     document.body.classList.add('my-meme')
     let storageImg = loadMyMemes()
     console.log(storageImg);

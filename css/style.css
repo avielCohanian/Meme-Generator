@@ -23,8 +23,8 @@ a {
 }
 
 img {
-    height: 150px;
-    width: 150px;
+    max-height: 150px;
+    max-width: 150px;
 }
 
 .btn {
@@ -594,8 +594,8 @@ body.do-meme .main-screen {
 
 @media screen and (min-width: 670px) {
     img {
-        height: 250px;
-        width: 250px;
+        max-height: 250px;
+        max-width: 250px;
     }
 
     .logo img {

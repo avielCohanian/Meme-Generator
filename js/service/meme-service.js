@@ -6,7 +6,7 @@ const KEY = 'MEMES'
 const EMOJIS = ['😈', '👿', '💩', '👻', '☠️', '😋', '🤩', '🧐', '😎', '🤛', '🧟‍♂️', '🎃']
 var gPageIdx = 0
 var gId = 1;
-var gAllImg = 18;
+var gAllImg = 25;
 var gSortBy;
 var gMemes;
 // var gKeywords = {'happy': 12,'funny puk': 1}
@@ -33,7 +33,7 @@ function _createImgs() {
 
 function _createImg(keywords) {
     return {
-        url: `meme-imgs/${gId}.jpg`,
+        url: `meme-imgs-various-aspect-ratios/${gId}.jpg`,
         id: gId++,
         keywords,
     }
@@ -72,7 +72,7 @@ function getCurrImg() {
     return gCurrMeme
 }
 function getImgsForDisplaySort() {
-    if (gSortBy === 'Gallery') {
+    if (gSortBy === 'Gallery' || gSortBy === '') {
         gShowImgs = gImgs
         return
     }
@@ -202,7 +202,7 @@ function drawText() {
         gCtx.fillText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
         gCtx.strokeText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
     });
-    stripe()
+    // stripe()
 }
 
 function stripe() {
