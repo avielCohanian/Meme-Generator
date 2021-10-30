@@ -208,6 +208,7 @@ function drawText() {
 function stripe() {
     let x = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x
     let y = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y
+    let txt = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.txt
     let size = gCurrMeme.lines[gCurrMeme.selectedLineIdx].size
 
     gCtx.beginPath();
@@ -252,7 +253,6 @@ function getEvPos(ev) {
 function movecurrImg(dx, dy) {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x += dx
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y += dy
-
 }
 
 function resizeCanvas() {
