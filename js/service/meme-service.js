@@ -195,14 +195,18 @@ function isTxtClicked({ y, x }) {
 
 function drawText() {
     gCurrMeme.lines.forEach((currImgTxt) => {
+        let x = currImgTxt.txtObj.x
+        let y = currImgTxt.txtObj.y
+        let txt = currImgTxt.txtObj.txt
+
         gCtx.lineWidth = 1;
         gCtx.strokeStyle = `${currImgTxt.colorBackground}`;
         gCtx.fillStyle = `${currImgTxt.colorTxt}`;
         gCtx.font = `${currImgTxt.size}px Arial`;
-        gCtx.fillText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
-        gCtx.strokeText(currImgTxt.txtObj.txt, currImgTxt.txtObj.x, currImgTxt.txtObj.y);
+        gCtx.fillText(txt, x, y);
+        gCtx.strokeText(txt, x, y);
     });
-    // stripe()
+    stripe()
 }
 
 function stripe() {
@@ -224,6 +228,11 @@ function stripe() {
 
     gCtx.moveTo(gCanvas.width - 20, y + 10);
     gCtx.lineTo(gCanvas.width - 20, y - (size + 5));
+
+    // gCtx.beginPath();
+    // gCtx.rect(x, y, txt.length * (size / 2), y);
+    // gCtx.closePath();
+
     gCtx.stroke()
 }
 
