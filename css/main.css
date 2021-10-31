@@ -1,0 +1,360 @@
+/* SCREENS */
+
+.main-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 249, 249, 0.856);
+    background-image: url("../meme-imgs/bcg-img/backImg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+    margin-top: 3.25em;
+    padding-top: 1em;
+}
+
+.close-main-screen {
+    font-size: 20px;
+    color: black;
+    padding: 10px;
+    background-color: rgba(255, 249, 249, 0.5);
+}
+
+body.editor-meme .main-screen {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+
+.img-editing {
+    justify-items: stretch;
+    justify-content: center;
+    text-align: center;
+    flex-basis: 50%;
+    display: grid;
+    height: 400px;
+    width: 400px;
+    align-content: space-between;
+    align-items: start;
+    grid-template-columns: repeat(4, 65px);
+    grid-template-rows: repeat(7, 50px);
+    grid-template-areas:
+        " txt-meme txt-meme txt-meme  add-txt"
+        "up  decrease-font increase-font up-and-down  "
+        "down   save  delete  emojis "
+        "align-to-left center-text-alignment align-to-right   emojis "
+        "paint-txt  paint-back txt-download emojis "
+        " img-up img-up img-up upload  "
+        " .  . . . ";
+}
+
+
+.img-editing .txt-meme {
+    grid-area: txt-meme;
+    border-radius: 10px;
+    height: 30px;
+}
+
+.img-editing .increase-font {
+    grid-area: increase-font;
+}
+
+.img-editing .decrease-font {
+    grid-area: decrease-font;
+}
+
+.img-editing .add-txt {
+    grid-area: add-txt;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+}
+
+.img-editing .center-text-alignment {
+    grid-area: center-text-alignment;
+}
+
+.img-editing .align-to-right {
+    grid-area: align-to-right;
+}
+
+.img-editing .align-to-left {
+    grid-area: align-to-left;
+}
+
+.img-editing .img-up {
+    grid-area: img-up;
+    height: 50px;
+    width: 50px;
+    color: black;
+}
+
+
+.img-editing .up-and-down {
+    grid-area: up-and-down;
+}
+
+.img-editing .up {
+    grid-area: up;
+}
+
+.img-editing .down {
+    grid-area: down;
+}
+
+.img-editing .paint-txt {
+    grid-area: paint-txt;
+}
+
+.img-editing .paint-back {
+    grid-area: paint-back;
+}
+
+.img-editing .txt-download {
+    grid-area: txt-download;
+}
+
+.img-editing .upload {
+    grid-area: upload;
+    background-color: white;
+}
+
+.img-editing .save {
+    grid-area: save;
+}
+
+.img-editing .delete {
+    grid-area: delete;
+}
+
+.emojis {
+    grid-area: emojis;
+    flex-direction: column;
+    text-align: center;
+    height: 0px;
+}
+
+.emojis a {
+    padding: 1px;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.63);
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+
+
+.emojis .next-page-btn {
+    color: black;
+}
+
+.desc {
+    display: none;
+}
+
+.mobail {
+    display: block;
+}
+
+.img-editing .save-show {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    color: lightyellow;
+    font-size: 4em;
+    background-image: url(../meme-imgs/5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-editing .share-show {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    color: lightyellow;
+    background-image: url(../meme-imgs/7.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-editing .close-share {
+    position: absolute;
+    /* color: black; */
+    font-size: 20px;
+    top: 10px;
+    left: 90%;
+}
+
+.img-editing .user-msg {
+    margin-top: 50px;
+}
+
+.img-editing .share-container {
+    font-size: 30px;
+}
+
+
+.canvas-meme {
+    flex-basis: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+
+.img-editing button {
+    background-position: center center;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.images {
+    margin-left: 10px;
+}
+
+
+
+.txt-download img {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+}
+
+/* helpers */
+/* flex */
+
+.flex {
+    display: flex;
+}
+
+.flex.align-center {
+    align-items: center;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.flex.flex-wrap {
+    flex-wrap: wrap;
+}
+
+
+/* list helpers */
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+}
+
+
+/* grid */
+
+.grid {
+    display: grid;
+}
+
+@media screen and (max-width: 670px) {
+    .images {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-gap: 5px;
+    }
+
+    .logo img {
+        height: 40px;
+        width: 150px;
+        left: 100px;
+    }
+
+    .logo {
+        margin-inline-start: 15px;
+    }
+
+    .menu {
+        display: inline-block;
+        cursor: pointer;
+        margin-inline-end: 20px;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        flex-direction: column;
+        background-color: rgba(107, 103, 103, 0.9);
+        width: 200px;
+        transform: translateX(100%);
+        border-inline-start: 1px solid #e0e0e0;
+        transition: transform .6s, box-shadow .6s;
+    }
+
+    body.menu-open .main-nav {
+        transform: translateX(0);
+        box-shadow: -2px -2px 20px rgba(0, 0, 0, .25);
+    }
+
+    body.menu-open .serch-txt a {
+        opacity: 0.2;
+    }
+
+    body.menu-open .serch-txt input {
+        opacity: 0.2;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 10px 16px;
+        border-bottom: 1px solid #e0e0e0;
+        transition: .3s;
+        color: whitesmoke;
+    }
+
+    .options {
+        flex-direction: column;
+    }
+
+    .main-screen {
+        flex-direction: column;
+        align-content: stretch;
+        align-items: center;
+    }
+
+    canvas {
+        width: 300px;
+        height: 300px;
+    }
+
+    .img-editing .txt-meme {
+        grid-area: txt-meme;
+        width: 150px;
+        border-radius: 10px;
+        height: 25px;
+    }
+
+    .img-editing button {
+        height: 50px;
+        width: 50px;
+    }
+
+}

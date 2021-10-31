@@ -7,9 +7,9 @@ const EMOJIS = ['😈', '👿', '💩', '👻', '☠️', '😋', '🤩', '🧐'
 var gPageIdx = 0
 var gId = 1;
 var gAllImg = 25;
-var gSortBy;
+var gFilterBy;
 var gMemes;
-// var gKeywords = {'happy': 12,'funny puk': 1}
+var gKeywords = { 'happy': 12, 'funny': 20, 'woman': 5, 'men': 7, 'animal': 8, 'dog': 9, 'bird': 5 }
 var gImgs = [];
 _createImgs()
 var gShowImgs = gImgs
@@ -22,10 +22,10 @@ var gCurrMeme;
 function _createImgs() {
     for (var i = 0; i < gAllImg; i++) {
         let keywords = []
-        if (i % 2) { keywords.push('Woman', 'Smile') }
-        if (i % 3) { keywords.push('Funny') }
-        if (i % 4) { keywords.push('Men') }
-        if (i % 5) { keywords.push('Animal', 'Dog', 'Bird') }
+        if (i % 2) { keywords.push('woman', 'smile') }
+        if (i % 3) { keywords.push('funny') }
+        if (i % 4) { keywords.push('men') }
+        if (i % 5) { keywords.push('animal', 'dog', 'bird') }
         let img = _createImg(keywords)
         gImgs.push(img)
     }
@@ -50,6 +50,7 @@ function restMeme(selectedImgId = 1) {
             colorTxt: 'white',
             colorBackground: 'black',
             isDrag: false,
+
         }
         ]
     }
@@ -62,22 +63,22 @@ function loadMyMemes() {
     return gMemes
 }
 
-function getSortImgs() {
+function getFilterImgs() {
     return gShowImgs
 }
 function getImgs() {
     return gImgs
 }
-function getCurrImg() {
+function getCurrMeme() {
     return gCurrMeme
 }
-function getImgsForDisplaySort() {
-    if (gSortBy === 'Gallery' || gSortBy === '') {
+function getImgsForDisplayFilter() {
+    if (gFilterBy === 'gallery' || gFilterBy === '') {
         gShowImgs = gImgs
         return
     }
     let sortImgs = gImgs.filter((img) => {
-        return img.keywords.some(key => key === gSortBy)
+        return img.keywords.some(key => key === gFilterBy)
     })
     gShowImgs = sortImgs
 }
@@ -87,23 +88,35 @@ function getImgById(id) {
     return currImg
 }
 
-function setSort(val) {
-    gSortBy = val
-    getImgsForDisplaySort()
+function setFilter(val) {
+    gFilterBy = val.toLowerCase()
+    getImgsForDisplayFilter()
 }
-function setSize(el) {//
+function setSize(el) {
     var allCategory = document.querySelectorAll('.category a')
-    allCategory.forEach(category => category.style.fontSize = '1rem')
     if (el) {
-        console.log(el.style.fontSize);
-        el.style.fontSize = '50px'
+        let fontSize =  parseInt(el.style.fontSize) 
+        console.log(fontSize);
+        fontSize += 5 
+        el.style.fontSize = fontSize +'px'
+        console.log(fontSize);
     }
 }
 
-function setCurrImgId(elId) {
-    gCurrMeme.selectedImgId = elId
+setSizee()
+function setSizee() {
+    var allCategory = document.querySelectorAll('.category a')
+    allCategory.forEach(category => {
+        for (const word in gKeywords) {
+            if (word === category.innerText) category.style.fontSize = gKeywords[word] * 1.5 + 'px'
+        }
+    })
 }
-function setCurrImgTxt(txt) {
+
+function setCurrMemeId(imgId) {
+    gCurrMeme.selectedImgId = imgId
+}
+function setCurrImgLine(txt) { //LINE
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.txt = txt
     drawText()
 }
@@ -121,19 +134,19 @@ function setDecreaseFont() {
 }
 function setCenterTextAlignment() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'center-text-alignment'
-    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gCanvas.width / 2
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gElCanvas.width / 2
 }
 function setAlignToRight() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-right'
-    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gCanvas.width - 20
+    gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = gElCanvas.width - 20
 }
 function setAlignToLeft() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].align = 'align-to-left'
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x = 20
 }
-function addNewImg(img) {
-    gImgs.push({ id: gId++, url: img, keywords: ['happy'] })
-    setCurrImgId(gId)
+function addNewImg(imgUrl) {
+    gImgs.push({ id: gId++, url: imgUrl, keywords: ['happy'] })
+    setCurrMemeId(gId)
 }
 function upTxt() {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y -= 1
@@ -147,17 +160,17 @@ function saveMeme() {
     gMemes.push(gCurrMeme)
     _saveMemeToStorage()
 }
-function deletMeme(NewMemes) {
-    gMemes = NewMemes
+function updateStorageMeme(newSaveMemes) {
+    gMemes = newSaveMemes
     _saveMemeToStorage()
 }
 
 function addTxt() {
     let y;
     if (gCurrMeme.lines.length < 2) {
-        y = gCanvas.height - 50
+        y = gElCanvas.height - 50
     } else {
-        y = gCanvas.height / 2
+        y = gElCanvas.height / 2
     }
     let newTxt = {
         txtObj: {
@@ -174,7 +187,7 @@ function addTxt() {
     gCurrMeme.lines.push(newTxt)
 }
 
-function moveTxtLine() {
+function switchTxtLine() {
     gCurrMeme.selectedLineIdx++
     if (gCurrMeme.selectedLineIdx > gCurrMeme.lines.length - 1) {
         gCurrMeme.selectedLineIdx = 0
@@ -194,15 +207,15 @@ function isTxtClicked({ y, x }) {
 
 
 function drawText() {
-    gCurrMeme.lines.forEach((currImgTxt) => {
-        let x = currImgTxt.txtObj.x
-        let y = currImgTxt.txtObj.y
-        let txt = currImgTxt.txtObj.txt
+    gCurrMeme.lines.forEach((currMemeTxt) => {
+        let x = currMemeTxt.txtObj.x
+        let y = currMemeTxt.txtObj.y
+        let txt = currMemeTxt.txtObj.txt
 
         gCtx.lineWidth = 1;
-        gCtx.strokeStyle = `${currImgTxt.colorBackground}`;
-        gCtx.fillStyle = `${currImgTxt.colorTxt}`;
-        gCtx.font = `${currImgTxt.size}px Arial`;
+        gCtx.strokeStyle = `${currMemeTxt.colorBackground}`;
+        gCtx.fillStyle = `${currMemeTxt.colorTxt}`;
+        gCtx.font = `${currMemeTxt.size}px Arial`;
         gCtx.fillText(txt, x, y);
         gCtx.strokeText(txt, x, y);
     });
@@ -214,23 +227,24 @@ function stripe() {
     let y = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y
     let txt = gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.txt
     let size = gCurrMeme.lines[gCurrMeme.selectedLineIdx].size
+    let lengthTxt = gCtx.measureText(txt)
 
     gCtx.beginPath();
     gCtx.moveTo(x - 50, y + 10);
-    gCtx.lineTo(gCanvas.width - 20, y + 10);
+    gCtx.lineTo(gElCanvas.width - 20, y + 10);
 
     gCtx.moveTo(x - 50, y - (size + 5));
-    gCtx.lineTo(gCanvas.width - 20, y - (size + 5));
+    gCtx.lineTo(gElCanvas.width - 20, y - (size + 5));
 
     gCtx.moveTo(x - 50, y + 10);
     gCtx.lineTo(x - 50, y - (size + 5));
 
 
-    gCtx.moveTo(gCanvas.width - 20, y + 10);
-    gCtx.lineTo(gCanvas.width - 20, y - (size + 5));
-
+    gCtx.moveTo(gElCanvas.width - 20, y + 10);
+    gCtx.lineTo(gElCanvas.width - 20, y - (size + 5));
+    // console.log(gCtx.measureText(txt));
     // gCtx.beginPath();
-    // gCtx.rect(x, y, txt.length * (size / 2), y);
+    // gCtx.rect(x, lengthTxt.fontBoundingBoxAscent, lengthTxt.width, lengthTxt.actualBoundingBoxAscent );
     // gCtx.closePath();
 
     gCtx.stroke()
@@ -259,15 +273,15 @@ function getEvPos(ev) {
     return pos
 }
 
-function movecurrImg(dx, dy) {
+function moveCurrLine(dx, dy) {
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.x += dx
     gCurrMeme.lines[gCurrMeme.selectedLineIdx].txtObj.y += dy
 }
 
 function resizeCanvas() {
     const elContainer = document.querySelector('canvas')
-    gCanvas.width = elContainer.offsetWidth
-    gCanvas.height = elContainer.offsetHeight
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
 }
 
 

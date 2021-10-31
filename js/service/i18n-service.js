@@ -65,9 +65,13 @@ var gTrans = {
         en: 'Search',
         he: 'חיפוש'
     },
-    'delet': {
-        en: 'delet',
+    'delete': {
+        en: 'delete',
         he: 'מחק'
+    },
+    'uploadImg': {
+        en: 'uploadImg',
+        he: 'העלה תמונה'
     },
 
 

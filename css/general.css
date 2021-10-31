@@ -1,0 +1,285 @@
+* {
+    box-sizing: border-box;
+}
+
+
+
+html {
+    font-family: lato, 'Trebuchet MS';
+    color: #606060;
+    font-size: 16px;
+}
+
+
+body {
+    margin: 0;
+    background-color: lightslategray;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.btn {
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+/* header */
+header {
+    position: fixed;
+    align-content: space-between;
+}
+
+.logo {
+    flex-direction: column;
+}
+
+.form-control-xsm {
+    background-color: #5970C1;
+    color: white;
+    border: none;
+    font-family: lato, 'Trebuchet MS';
+    font-size: 1.1em;
+}
+
+
+/* hamburger */
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #FFFFFF;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.menu {
+    display: none;
+}
+
+
+.main-nav a:hover {
+    background-color: #FEFEFE;
+    color: #5970C1;
+}
+
+.main-header {
+    background-color: #5970C1;
+    border-radius: 20px;
+    height: 3.9em;
+    width: 100%;
+    z-index: 1;
+}
+
+.main-footer {
+    background-color: #5970C1;
+    border-radius: 20px;
+    height: 3.9em;
+    width: 100%;
+    z-index: 1;
+    position:absolute;
+}
+
+
+/* main */
+
+main {
+    background-color: #383B42;
+    padding-top: 3.25em;
+}
+
+.options {
+    text-align: center;
+}
+
+.options input {
+    color: #FEFEFE;
+    background-color: #22252C;
+    border-radius: 10px;
+}
+
+.options ul {
+    color: #FEFEFE;
+    background-color: lightslategrey;
+    border-radius: .625em;
+    padding: .325em;
+    font-size: 10px;
+}
+
+.options ul>a {
+    font-size: 1em;
+}
+
+.options a {
+    margin-inline-end: 20px;
+}
+
+.search-txt {
+    position: relative;
+}
+
+.search-txt input {
+    width: 200px;
+    height: 25px;
+    margin-top: 1.25em;
+}
+
+.search-txt a {
+    position: absolute;
+    left: 170px;
+    margin-top: 1.25em;
+}
+
+/* memes page */
+
+.memes-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 249, 249, 0.856);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+    margin-top: 6.25em;
+    padding-top: 3em;
+}
+
+body.my-meme .memes-page {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+/* main-screen-mnu */
+
+.main-screen-mnu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .25);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+}
+
+body.menu-open .main-screen-mnu {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+
+/* icons */
+
+
+.increase-font {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/increase font - icon.png');
+    background-color: white;
+
+}
+
+.decrease-font {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/decrease font - icon.png');
+    background-color: white;
+}
+
+.center-text-alignment {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/center-text-alignment.png');
+    background-color: white;
+}
+
+.align-to-right {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-right.png');
+    background-color: white;
+}
+
+.align-to-left {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/align-to-left.png');
+    background-color: white;
+}
+
+.add-img {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/add.png');
+    background-color: lightyellow;
+    /* color: lightyellow; */
+}
+
+.up-and-down {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png');
+    background-color: white;
+}
+
+.paint-txt {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/paint-board-and-brush.png');
+    background-size: 100%;
+    background-color: white;
+}
+
+.paint-back {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/text-stroke.png');
+    background-size: 100%;
+    background-color: white;
+}
+
+.paint-board {
+    height: 50px;
+    width: 50px;
+    background-position: bottom;
+    border: 1px solid;
+}
+
+
+
+
+.upload {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/facebook-logo.png');
+    background-color: lightblue;
+}
+
+
+.up {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/upImg.png');
+    background-color: white;
+}
+
+.down {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/down.png');
+    background-color: white;
+}
+
+.add-txt {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/add.png');
+    background-color: white;
+    ;
+}
+
+.save {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/save.png');
+    background-color: white;
+}
+
+.delete {
+    background: url('../DESIGN/Meme1\ -\ Sergei/ICONS/trash.png');
+    background-color: white;
+}
+
+.img-up {
+    /* background: url(../DESIGN/Meme1\ -\ Sergei/ICONS/add-img.png); */
+    background-color: white;
+    /* height: 50px;
+    width: 50px; */
+}
