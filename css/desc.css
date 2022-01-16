@@ -1,117 +1,123 @@
 /* large */
 
-
 @media screen and (min-width: 670px) {
-    img {
-        max-height: 250px;
-        max-width: 250px;
-    }
+  img {
+    max-height: 250px;
+    max-width: 250px;
+  }
 
-    .logo img {
-        height: 40px;
-        width: 150px;
-    }
+  .logo img {
+    height: 40px;
+    width: 150px;
+  }
 
-    .btn :hover {
-        background-color: lightslategrey;
-    }
+  .btn :hover {
+    background-color: lightslategrey;
+  }
 
-    .main-nav a {
-        padding: 1em;
-        margin-inline-end: .625em;
-        border-radius: 1.25em;
-        color: #FFFFFF;
-        font-size: 1.25em;
-    }
+  .main-nav a {
+    padding: 1em;
+    margin-inline-end: 0.625em;
+    border-radius: 1.25em;
+    color: #ffffff;
+    font-size: 1.25em;
+  }
 
-    .main-header {
-        height: 6.25em;
-    }
+  .main-header {
+    height: 6.25em;
+  }
 
-    .main-footer {
-        height: 6.25em;
-    }
+  .main-footer {
+    height: 6.25em;
+  }
 
-    .images {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
+  .images {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    padding: 0 30px;
+  }
+  .images img {
+    cursor: pointer;
+  }
 
-    main {
-        padding-top: 6.25em;
-    }
+  main {
+    padding-top: 6.25em;
+  }
 
-    .options ul {
-        padding: .625em;
-    }
+  .options ul {
+    padding: 0.625em;
+  }
 
-    .options ul>a {
-        font-size: 2em;
-    }
+  .options ul > a {
+    font-size: 2em;
+  }
 
-    .main-screen {
-        margin-top: 6.25em;
-        padding-top: 3em;
-    }
+  .main-screen {
+    margin-top: 6.25em;
+    padding-top: 3em;
+  }
 
-    .close-main-screen {
-        margin-top: 10px;
-    }
+  .close-main-screen {
+    margin-top: 10px;
+  }
 
-    .desc{ 
-        display: block;  
-    }
-    
-    .mobail{
-        display: none;  
-    }
+  .desc {
+    display: block;
+  }
 
-    .img-editing {
-        justify-items: stretch;
-        justify-content: start;
-        align-content: space-between;
-        flex-basis: 50%;
-        display: grid;
-        grid-template-columns: repeat(3, 60px);
-        grid-template-rows: repeat(7, 55px);
-        grid-template-areas:
-            "txt-meme txt-meme  add-txt "
-            "up-and-down  decrease-font increase-font "
-            "down up save "
-            "align-to-left center-text-alignment align-to-right "
-            "paint-txt delete paint-back "
-            "  emojis emojis emojis "
-            " img-up txt-download  upload ";
-    }
+  .mobail {
+    display: none;
+  }
 
-    .txt-download img {
-        height: 50px;
-        width: 50px;
-    }
+  .img-editing {
+    margin-left: 55px;
+    gap: 10px;
+    justify-items: stretch;
+    justify-content: start;
+    align-content: space-between;
+    flex-basis: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(7, 55px);
+    grid-template-areas:
+      'txt-meme txt-meme  add-txt '
+      'up-and-down  decrease-font increase-font '
+      'down up save '
+      'align-to-left center-text-alignment align-to-right '
+      'paint-txt delete paint-back '
+      '  emojis emojis emojis '
+      ' img-up txt-download  upload ';
+  }
 
-    canvas {
-        width: 400px;
-        height: 400px;
-    }
+  .txt-download img {
+    height: 50px;
+    width: 50px;
+  }
 
-    .img-editing .txt-meme {
-        width: 120px;
-    }
+  canvas {
+    width: 80%;
+    height: 50%;
+  }
 
-    .img-editing button {
-        height: 50px;
-        width: 50px;
-    }
+  .img-editing .txt-meme {
+    width: 120px;
+  }
 
-    .canvas-meme {
-        margin-left: 10px;
-    }
+  .img-editing button {
+    height: 50px;
+    width: 50px;
+  }
 
-    .emojis {
-        flex-direction: row;
-    }
+  .canvas-meme {
+    margin-left: 10px;
+    flex-basis: 90%;
+  }
 
-    .emojis a {
-        padding: 5px;
-    }
+  .emojis {
+    flex-direction: row;
+  }
+
+  .emojis a {
+    padding: 5px;
+  }
 }
